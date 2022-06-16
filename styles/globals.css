@@ -1,0 +1,59 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.login{
+  background-image: url('https://images.unsplash.com/photo-1576402187878-974f70c890a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1633&q=80');
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+ 
+}
+.heading{
+  font-size: 6rem;
+  font-weight: 900;
+}
+.login::before{
+  content: '';
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.google{
+  width: 50px;
+  height: 50px;
+ 
+}
+.card-img-top {
+  width: 100%;
+  height: 20vh;
+  object-fit: cover;
+}
+.scroll{
+  height: 90vh;
+ 
+  overflow-y: auto;
+}
+.partition{
+  width: 20%;
+}
+.partition-mid{
+  width: 40%;
+}
