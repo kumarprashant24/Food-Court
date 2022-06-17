@@ -83,6 +83,10 @@ a {
   user-select: none;
   margin-left: 15px;
 }
+.menu-img{
+  height: 200px;
+  width: 200px;
+}
 @media only screen and (max-width: 980px) {
   .cross{
 

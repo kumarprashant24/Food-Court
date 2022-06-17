@@ -14,7 +14,6 @@ export default function Menu({ providers, session }) {
     const router = useRouter()
     const { rest_id } = router.query
     useEffect(() => {
-        // console.log(session.user);
         if(!session)
         {
             router.push('/')
