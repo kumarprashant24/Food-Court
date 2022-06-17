@@ -32,7 +32,8 @@ export default function Dashboard({ user }) {
         return (
             <>
                 <div className='container'>
-                    <h1 className='mt-5'>Order food online with Food Court</h1>
+                    <h1 className='mt-5 text-black-50'>Order food online with Food Court</h1>
+                    <hr/>
                     <div className="row ">
                         {restaurant.map((element, index) => {
                             return (

@@ -57,3 +57,37 @@ a {
 .partition-mid{
   width: 40%;
 }
+.cross{
+  cursor: pointer;
+  height: 26px;
+  width: 26px;
+  clip-path: circle(50%);
+}
+.picture {
+  outline: none;
+  color: transparent;
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 70px;
+  transition: 0.5s;
+}
+.picture::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.picture::before {
+  content: '\f0ee';
+  font-family: fontAwesome;
+  font-size: 40px;
+  color: black;
+  display: inline-block;
+  user-select: none;
+  margin-left: 15px;
+}
+@media only screen and (max-width: 980px) {
+  .cross{
+
+    height: 20px;
+    width: 25px;
+   
+  }
+}

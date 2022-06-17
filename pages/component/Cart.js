@@ -41,8 +41,8 @@ export default function Cart({ providers, session }) {
             <div className='container-fluid'>
                 <div className='row mt-4'>
     
-                    <div className='col-md-6 scroll'>
-                        <h3 className='mt-4'>Your Order Details</h3>
+                    <div className='col-md-6 scroll border-end'>
+                        <h3 className='mt-4 text-black-50'>Your Order Details</h3>
                         {items.map((element, index) => {
                             return <>
                                 <div className="card mb-3" key={index} >
@@ -65,22 +65,22 @@ export default function Cart({ providers, session }) {
                         })}
     
                     </div>
-                    <div className='col-md-6'>
-                        <h3 className='mt-4'>Your Order Summary</h3>
+                    <div className='col-md-6 scroll'>
+                        <h3 className='mt-4 text-black-50'>Your Order Summary</h3>
                         <hr />
                         <div className='d-flex justify-content-between mt-3 container'>
                             <div className='fw-bold'>Items</div>
-                            <div className='fw-bold me-3'>Price</div>
+                            <div className='fw-bold me-4'>Price</div>
                         </div>
                         {items.map((element, index) => {
                             grandTotal += parseInt(element.price) * parseInt(element.quantity);
                             return <>
                                 <div className='d-flex justify-content-between mt-4 container' key={index}>
-                                    <div className='partition'>{element.food_name}</div>
-                                    <div className='partition-mid text-center'>1 x {element.quantity}</div>
+                                    <div className='partition text-muted'>{element.food_name}</div>
+                                    <div className='partition-mid text-center text-black-50'>1 x {element.quantity}</div>
                                     <div className='d-flex align-items-center justify-content-end partition '>
                                         <div className='text-success fw-bold'><span className='me-2'>₹</span>{element.price}</div>
-                                        <i className="fa-solid fa-xmark ms-3 text-danger d-flex justify-content-center " onClick={() => removeItem(index)} style={{cursor:"pointer"}} ></i>
+                                        <i className="fa-solid fa-xmark ms-3 text-white p-1 d-flex justify-content-center align-items-center bg-danger cross" onClick={() => removeItem(index) } ></i>
                                     </div>
     
                                 </div>

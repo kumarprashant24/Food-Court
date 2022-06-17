@@ -17,7 +17,9 @@ export default function Navbar({ user }) {
             setUserDetails(res.data);
         });
     } 
-
+  const home =()=>{
+    router.push('/');
+  }
     const logout =()=>{
         signOut();
         // router.push('/')
@@ -34,7 +36,7 @@ export default function Navbar({ user }) {
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
                                 <Link  href="/component/Dashboard">
-                                <a className="nav-link active" aria-current="page">Food Court</a>
+                                <a className="nav-link active d-flex align-items-center fw-bold" aria-current="page"><div><i className="fa-solid fa-2x fa-seedling me-2"></i></div>Food Court</a>
 
                                 </Link>
                             </li>
@@ -43,14 +45,19 @@ export default function Navbar({ user }) {
                         {user === '' ? "" :
                             <div className='d-flex'>
                                 <img src={user.image} className="rounded-circle" style={{ height: '50px', width: '50px' }} />
+                               
+                                <div className='text-white d-flex align-items-center ms-2 '>{user.name}</div>
+                        
+                                <div className='d-flex align-items-center ms-3' onClick={home} style={{cursor:"pointer"}}><i className="fa-solid fa-house text-white fa-2x"></i></div>
+                                {user.email==='uic.20mca1328@gmail.com'?"":
+                                 <Link href={`/component/Cart?uid=${userDetails._id}`}>
+                                 <a className='d-flex align-items-center ms-2'>
+                                     <div className='d-flex align-items-center' ><i className="fa-solid fa-cart-shopping fa-2x text-white  "></i></div>
+                                 </a>
 
-                                <div className='text-white d-flex align-items-center ms-2'>{user.name}</div>
-                                <Link href={`/component/Cart?uid=${userDetails._id}`}>
-                                    <a className='d-flex align-items-center ms-2'>
-                                        <div ><i className="fa-solid fa-cart-shopping fa-2x text-white  "></i></div>
-                                    </a>
-
-                                </Link>
+                             </Link>
+                                }
+                               
                                 <div className='d-flex align-items-center ms-3' onClick={() => logout()} style={{cursor:"pointer"}}>
                                     <i className="fa-solid fa-2x fa-right-from-bracket text-white"></i>
                                 </div>

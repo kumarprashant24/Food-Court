@@ -11,7 +11,7 @@ function MyApp({
   Component,
   pageProps, providers, session
 }) {
-const [userDetails,setUserDetails] = useState({})
+ 
 
 
   return <>

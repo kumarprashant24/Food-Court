@@ -14,8 +14,16 @@ export default function Menu({ providers, session }) {
     const router = useRouter()
     const { rest_id } = router.query
     useEffect(() => {
+        // console.log(session.user);
+        if(!session)
+        {
+            router.push('/')
+        }
+       else{
         getUserID()
         loadusers();
+       }
+
     }, [])
     const getUserID = async ()=>{
         await axios.post("/api/userId", { email: session.user.email }).then((res) => {
@@ -44,53 +52,57 @@ export default function Menu({ providers, session }) {
         });
 
     }
-    return (
-        <>
-            {/* <Navbar user={session.user}></Navbar> */}
-
-            <div className='container mt-4'>
-                <h1>{restro.name} Menu</h1>
-                {menu.map((element, index) => {
-                    return <>
-                        <div className='container  mt-5' key={index}>
-                            <div className='row border'>
-                                <div className='col  d-flex justify-content-start p-0'>
-                                    <div className="card border-0 ">
-                                        <div className="row g-0">
-                                            <div className="col-md-4">
-                                                <img src={element.image} className="img-fluid rounded-start" alt="..." />
-                                            </div>
-                                            <div className="col-md-8  d-flex align-items-center">
-                                                <div className="card-body ">
-                                                    <h5 className="">{element.food_name}</h5>
+    if(session)
+    {
+        return (
+            <>
+        
+    
+                <div className='container mt-4'>
+                    <h1>{restro.name} Menu</h1>
+                    {menu.map((element, index) => {
+                        return <>
+                            <div className='container  mt-5' key={index}>
+                                <div className='row border'>
+                                    <div className='col  d-flex justify-content-start p-0'>
+                                        <div className="card border-0 ">
+                                            <div className="row g-0">
+                                                <div className="col-md-4">
+                                                    <img src={element.image} className="img-fluid rounded-start" alt="..." />
+                                                </div>
+                                                <div className="col-md-8  d-flex align-items-center">
+                                                    <div className="card-body ">
+                                                        <h5 className="">{element.food_name}</h5>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className='col  d-flex justify-content-center'>
-                                    <div className=' fw-bold d-flex  align-items-center' >
-                                        <button className='btn btn-danger me-2' onClick={minus}>-</button>
-                                        <div>x {quantity}</div>
-                                        <button className='btn btn-success ms-2' onClick={plus}>+</button>
+                                    <div className='col  d-flex justify-content-center'>
+                                        <div className=' fw-bold d-flex  align-items-center' >
+                                            <button className='btn btn-danger me-2' onClick={minus}>-</button>
+                                            <div>x {quantity}</div>
+                                            <button className='btn btn-success ms-2' onClick={plus}>+</button>
+                                        </div>
+                                    </div>
+                                    <div className='col  d-flex justify-content-end p-0'>
+                                        <div className='text-success fw-bold d-flex  align-items-center me-3'>
+                                            <span className='me-2'>₹</span>{element.price}
+    
+                                        </div>
+                                        <div className='bg-success d-flex align-items-center' onClick={(e)=>addToBag(element,e)} style={{cursor:'pointer'}}><i className="fa-solid fa-chevron-right p-3 text-white "></i></div>
                                     </div>
                                 </div>
-                                <div className='col  d-flex justify-content-end p-0'>
-                                    <div className='text-success fw-bold d-flex  align-items-center me-3'>
-                                        <span className='me-2'>₹</span>{element.price}
-
-                                    </div>
-                                    <div className='bg-success d-flex align-items-center' onClick={(e)=>addToBag(element,e)} style={{cursor:'pointer'}}><i className="fa-solid fa-chevron-right p-3 text-white "></i></div>
-                                </div>
+    
+    
+    
                             </div>
-
-
-
-                        </div>
-                    </>
-                })}
-            </div>
-            <ToastContainer theme="colored" />
-        </>
-    )
+                        </>
+                    })}
+                </div>
+                <ToastContainer theme="colored" />
+            </>
+        )
+    }
+    
 }

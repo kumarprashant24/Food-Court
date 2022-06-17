@@ -5,13 +5,21 @@ import React, { Children, useEffect } from 'react'
 import Dashboard from './component/Dashboard'
 import Login from './component/Login'
 import Navbar from './component/Navbar'
+import Admin from './component/Admin'
 
 export default function Home({ providers,session }) {
-
 
   if (!session) {
     return (
      <Login toggle={providers}></Login>
+    )
+  }
+  else if(session.user.email==='uic.20mca1328@gmail.com')
+  {
+    return(
+    <>
+    <Admin user={session.user}></Admin>
+    </>
     )
   }
   else{
