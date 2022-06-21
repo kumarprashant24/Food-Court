@@ -6,6 +6,12 @@ const userSchema = new mongoose.Schema({
     name: String,
     email: String,
     image: String,
+    phone_number:String,
+    shipping_address:String,
+    landmark:String,
+    city:String,
+    state:String,
+    zip:String
 
 });
 

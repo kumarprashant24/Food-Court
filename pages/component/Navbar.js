@@ -6,12 +6,12 @@ import { useRouter } from 'next/router'
 import Profile from './Profile'
 
 
-export default function Navbar({ user }) {
+export default function Navbar({ user}) {
     const router = useRouter()
     const [userDetails, setUserDetails] = useState({})
     useEffect(() => {
-        console.log(user);
         getUserID();
+    
     },[])
     const getUserID = async ()=>{
       
@@ -19,6 +19,7 @@ export default function Navbar({ user }) {
             setUserDetails(res.data);
         });
     } 
+ 
   const home =()=>{
     router.push('/');
   }
@@ -28,7 +29,7 @@ export default function Navbar({ user }) {
     }
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav className="navbar navbar-expand-lg navbar-light border-bottom">
                 <div className="container-fluid">
 
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,24 +50,34 @@ export default function Navbar({ user }) {
                                 <div className='d-flex' data-bs-toggle="modal" data-bs-target="#exampleModal" style={{cursor:"pointer"}}>
                                 <img src={user.image} className="rounded-circle" style={{ height: '50px', width: '50px' }} />
                                
-                               <div className='text-white d-flex align-items-center ms-2 ' >{user.name}</div>
+                               <div className='d-flex align-items-center ms-2 ' >{user.name}</div>
                        
                                 </div>
-                              
-                                <div className='d-flex align-items-center ms-3' onClick={home} style={{cursor:"pointer"}}><i className="fa-solid fa-house text-white fa-2x"></i></div>
+                               
+                                <div className='d-flex align-items-center ms-3 position-relative ' onClick={home} style={{cursor:"pointer"}}> 
+                                <box-icon name='home' size="40px" color='black'></box-icon>
+                 
+                                </div>
+                                <div className='position-relative d-flex align-items-center'>
                                 {user.email===process.env.ADMIN_ID?"":
-                                 <Link href={`/component/Cart?uid=${userDetails._id}`}>
-                                 <a className='d-flex align-items-center ms-2'>
-                                     <div className='d-flex align-items-center' ><i className="fa-solid fa-cart-shopping fa-2x text-white  "></i></div>
+                                
+                                 <Link href={`/component/Cart?uid=${userDetails._id}`} className="">
+                                 <a className=' d-flex align-items-center ms-2'>
+                                     <div className='d-flex align-items-center' >
+                                        <box-icon name='cart' size="40px" color='black'></box-icon>
+                                        {/* <div className='bag d-flex justify-content-center align-items-center text-white'>{}</div> */}
+                                        </div>
                                  </a>
+
 
                              </Link>
                                 }
+                                </div>
                                
                                 <div className='d-flex align-items-center ms-3' onClick={() => logout()} style={{cursor:"pointer"}}>
-                                    <i className="fa-solid fa-2x fa-right-from-bracket text-white"></i>
+                                <box-icon name='log-out-circle' size="40px" rotate='180' color='black'></box-icon>
                                 </div>
-                                <Profile user={user}/>
+                                <Profile user={user} userDetails={userDetails}/>
                             </div>
                         }
 
@@ -76,3 +87,4 @@ export default function Navbar({ user }) {
         </>
     )
 }
+

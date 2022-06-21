@@ -1,6 +1,43 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 
-export default function Profile({ user }) {
+export default function Profile({ user, userDetails }) {
+    const [userData,setUserData]=useState({})
+    const [inputs, setInputs] = useState({
+        phone_number: "",
+        shipping_address: "",
+        landmark: "",
+        city: "",
+        state: "",
+        zip: ""
+    });
+    const OnInputChange = e => {
+        setInputs({ ...inputs, [e.target.name]: e.target.value })
+    };
+    const updateProfile = async() => {
+        await axios.post('/api/updateUserProfile',{data:inputs,uid:userDetails._id}).then((res)=>{
+
+        })
+    }
+    useEffect(() => {
+    
+        loadusers()
+    }, [])
+   
+    const loadusers = async ()=>{
+         axios.post('api/currentUser',{uid:userDetails._id}).then((res)=>{
+            setInputs({
+                phone_number: res.data.phone_number,
+                shipping_address: res.data.shipping_address,
+                landmark: res.data.landmark,
+                city: res.data.city,
+                state: res.data.state,
+                zip: res.data.zip
+            })
+            setUserData(res.data)
+        })
+    }
+
     return (
         <div>
 
@@ -13,15 +50,46 @@ export default function Profile({ user }) {
                         </div>
                         <div className="modal-body">
                             <div className='d-flex'>
-                                <img src={user.image} alt='no pic'  className="rounded-circle" style={{ height: '50px', width: '50px' }}/>
-
-                                <div className='d-flex align-items-center'>{user.name}</div>
+                                <img src={user.image} alt='no pic' className="rounded-circle" style={{ height: '50px', width: '50px' }} />
+                                <div className='d-flex align-items-center ms-2'>{user.name} <span className='ms-2 text-success fw-bold'>{user.email === process.env.ADMIN_ID ? "(Admin)" : "(User)"}</span></div>
                             </div>
 
-                            <div><span className='fw-bold'>Email: </span>{user.email}</div>
+                            <div className='mt-3'><span className='fw-bold me-2'>Authorized Email: </span>{user.email}</div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Phone Number" aria-label="" name='phone_number' onChange={(e) => OnInputChange(e)} value={inputs.phone_number} />
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mt-2">
+                                <div class="col-12">
+                                    <label for="inputAddress" class="form-label" >Shipping Address</label>
+                                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name='shipping_address' onChange={(e) => OnInputChange(e)} value={inputs.shipping_address} />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputEmail4" class="form-label" >Lankmark</label>
+                                    <input type="text" class="form-control" name='landmark' onChange={(e) => OnInputChange(e)} value={inputs.landmark} />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputPassword4" class="form-label" >City</label>
+                                    <input type="text" class="form-control" name='city' id="inputPassword4" onChange={(e) => OnInputChange(e)} value={inputs.city} />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="inputState" class="form-label">State</label>
+                                    <input type="text" class="form-control" name='state' id="inputPassword4" onChange={(e) => OnInputChange(e)} value={inputs.state} />
+
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputZip" class="form-label">Zip</label>
+                                    <input type="text" class="form-control" id="inputZip" name='zip' onChange={(e) => OnInputChange(e)} value={inputs.zip} />
+                                </div>
+                            </div>
+
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onClick={updateProfile}>Save changes</button>
                         </div>
                     </div>
                 </div>
