@@ -8,6 +8,9 @@ import Navbar from './component/Navbar'
 import Admin from './component/Admin'
 
 export default function Home({ providers,session }) {
+  useEffect(()=>{
+       console.log(process.env.ADMIN_ID);
+  },[])
 
   if (!session) {
     return (
