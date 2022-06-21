@@ -6,10 +6,12 @@ import { useRouter } from 'next/router'
 import Profile from './Profile'
 
 
-export default function Navbar({ user}) {
+export default function Navbar({ user,userData}) {
     const router = useRouter()
     const [userDetails, setUserDetails] = useState({})
+
     useEffect(() => {
+        console.log(userData);
         getUserID();
     
     },[])
@@ -77,7 +79,7 @@ export default function Navbar({ user}) {
                                 <div className='d-flex align-items-center ms-3' onClick={() => logout()} style={{cursor:"pointer"}}>
                                 <box-icon name='log-out-circle' size="40px" rotate='180' color='black'></box-icon>
                                 </div>
-                                <Profile user={user} userDetails={userDetails}/>
+                                <Profile user={user} userDetails={userDetails} userData={userData}/>
                             </div>
                         }
 

@@ -1,42 +1,29 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-export default function Profile({ user, userDetails }) {
-    const [userData,setUserData]=useState({})
+export default function Profile({ user, userDetails ,userData}) {
+    // const [userData,setUserData]=useState({})
     const [inputs, setInputs] = useState({
-        phone_number: "",
-        shipping_address: "",
-        landmark: "",
-        city: "",
-        state: "",
-        zip: ""
-    });
+        phone_number: userData.phone_number,
+        shipping_address: userData.shipping_address,
+        landmark: userData.landmark,
+        city: userData.city,
+        state: userData.state,
+        zip: userData.zip
+    })
     const OnInputChange = e => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
     };
     const updateProfile = async() => {
         await axios.post('/api/updateUserProfile',{data:inputs,uid:userDetails._id}).then((res)=>{
-
+            alert('data updated')
         })
     }
     useEffect(() => {
-    
-        loadusers()
+      console.log(userData);
     }, [])
    
-    const loadusers = async ()=>{
-         axios.post('api/currentUser',{uid:userDetails._id}).then((res)=>{
-            setInputs({
-                phone_number: res.data.phone_number,
-                shipping_address: res.data.shipping_address,
-                landmark: res.data.landmark,
-                city: res.data.city,
-                state: res.data.state,
-                zip: res.data.zip
-            })
-            setUserData(res.data)
-        })
-    }
+  
 
     return (
         <div>
