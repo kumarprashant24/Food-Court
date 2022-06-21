@@ -23,7 +23,7 @@ export default function Dashboard({ user }) {
     const loadusers = async () => {
         await axios.get("/api/resturant").then((res) => {
             setRestaurant(res.data)
-            console.log(restaurant);
+         
         });
 
     }

@@ -14,7 +14,7 @@ export default function Home({ providers,session }) {
      <Login toggle={providers}></Login>
     )
   }
-  else if(session.user.email==='uic.20mca1328@gmail.com')
+  else if(session.user.email===process.env.ADMIN_ID)
   {
     return(
     <>

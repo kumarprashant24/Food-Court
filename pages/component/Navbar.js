@@ -3,14 +3,16 @@ import { signOut } from "next-auth/client"
 import Link from 'next/link'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import Profile from './Profile'
 
 
 export default function Navbar({ user }) {
     const router = useRouter()
     const [userDetails, setUserDetails] = useState({})
     useEffect(() => {
+        console.log(user);
         getUserID();
-    })
+    },[])
     const getUserID = async ()=>{
       
         await axios.post("/api/userId", { email: user.email }).then((res) => {
@@ -44,12 +46,15 @@ export default function Navbar({ user }) {
                         </ul>
                         {user === '' ? "" :
                             <div className='d-flex'>
+                                <div className='d-flex' data-bs-toggle="modal" data-bs-target="#exampleModal" style={{cursor:"pointer"}}>
                                 <img src={user.image} className="rounded-circle" style={{ height: '50px', width: '50px' }} />
                                
-                                <div className='text-white d-flex align-items-center ms-2 '>{user.name}</div>
-                        
+                               <div className='text-white d-flex align-items-center ms-2 ' >{user.name}</div>
+                       
+                                </div>
+                              
                                 <div className='d-flex align-items-center ms-3' onClick={home} style={{cursor:"pointer"}}><i className="fa-solid fa-house text-white fa-2x"></i></div>
-                                {user.email==='uic.20mca1328@gmail.com'?"":
+                                {user.email===process.env.ADMIN_ID?"":
                                  <Link href={`/component/Cart?uid=${userDetails._id}`}>
                                  <a className='d-flex align-items-center ms-2'>
                                      <div className='d-flex align-items-center' ><i className="fa-solid fa-cart-shopping fa-2x text-white  "></i></div>
@@ -61,6 +66,7 @@ export default function Navbar({ user }) {
                                 <div className='d-flex align-items-center ms-3' onClick={() => logout()} style={{cursor:"pointer"}}>
                                     <i className="fa-solid fa-2x fa-right-from-bracket text-white"></i>
                                 </div>
+                                <Profile user={user}/>
                             </div>
                         }
 
