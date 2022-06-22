@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 import NextAuth from "next-auth"
 import { signIn } from "next-auth/client";
 import GoogleProvider from "next-auth/providers/google"
+import conn from '../../../dbConn'
 
 import user from '../../../models/user.model'
-
+conn();
 
 
 export default NextAuth({
@@ -29,17 +30,20 @@ export default NextAuth({
   database: process.env.DATABASE_URL,
   callbacks: {
  
-    async jwt(token, user, account, profile) {
+    async jwt(token, user) {
       if (user) {
         token.id = user.id
       }
       return token
     },
     async session(session, token) {
-      const uid = mongoose.Types.ObjectId(token.id);
-      const data = await user.findById(uid);
-      session.user = data
-      return session
+
+        const uid = mongoose.Types.ObjectId(token.id);
+        const data = await user.findById(uid);
+        session.user = data
+      
+        return session
+  
     }
   }
 

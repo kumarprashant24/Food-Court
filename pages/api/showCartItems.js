@@ -5,8 +5,8 @@ conn();
 
 export default async function bag(req, res) {
     let data = req.body
-    const email  =  mongoose.Types.ObjectId(req.body.id);
-     const result =  await cart.findOne({ordered_by:email})
+    const uid  =  mongoose.Types.ObjectId(req.body.id);
+     const result =  await cart.findOne({ordered_by:uid})
     res.send(result)
  
   }

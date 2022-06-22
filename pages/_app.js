@@ -6,18 +6,14 @@ import Navbar from './component/Navbar'
 import { providers, getSession } from "next-auth/client"
 import { useEffect, useState } from 'react'
 import Layout from './component/Layout'
-import axios from 'axios'
-import { session } from 'passport'
+
 
 function MyApp({
   Component,
   pageProps, providers, session
 }) {
-
-const [userData,setUserData] = useState({})
 useEffect(()=>{
   console.log(session);
-
 
 },[])
 

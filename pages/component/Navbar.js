@@ -7,14 +7,15 @@ import Profile from './Profile'
 
 
 export default function Navbar({ user,userData,session}) {
+    const [bag,setBag] = useState({})
     const router = useRouter()
 
 
     useEffect(() => {
        
-    
+       
     },[])
- 
+
    
  
   const home =()=>{
