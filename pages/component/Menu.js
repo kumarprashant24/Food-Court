@@ -8,8 +8,7 @@ export default function Menu({ providers, session }) {
     const [menu, setMenu] = useState([])
     const [restro, setRestro] = useState({})
     const [quantity, setQuantity] = useState(1)
-    const [bag, setBag] = useState({})
-    const [userId, setUserId] = useState('')
+
 
     const router = useRouter()
     const { rest_id } = router.query
@@ -18,16 +17,11 @@ export default function Menu({ providers, session }) {
             router.push('/')
         }
         else {
-            getUserID()
             loadusers();
         }
 
     }, [])
-    const getUserID = async () => {
-        await axios.post("/api/userId", { email: session.user.email }).then((res) => {
-            setUserId(res.data._id);
-        });
-    }
+
     const loadusers = async (e) => {
 
         await axios.post("/api/menu", { id: rest_id }).then((res) => {
@@ -45,7 +39,7 @@ export default function Menu({ providers, session }) {
     }
     const addToBag = async (item, e) => {
         e.preventDefault();
-        await axios.post("/api/bag", { order_details: [{ restro_name: restro.name, food_name: item.food_name, price: item.price, picture: item.image, quantity: quantity }], ordered_by: userId }).then((res) => {
+        await axios.post("/api/bag", { order_details: [{ restro_name: restro.name, food_name: item.food_name, price: item.price, picture: item.image, quantity: quantity }], ordered_by: session.user.id }).then((res) => {
             toast.success('Added to bag')
         });
 

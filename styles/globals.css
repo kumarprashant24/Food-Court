@@ -51,12 +51,12 @@ a {
  
   overflow-y: auto;
 }
-/* .partition{
+.partition{
   width: 20%;
 }
 .partition-mid{
   width: 40%;
-} */
+}
 .cross{
   cursor: pointer;
   height: 26px;

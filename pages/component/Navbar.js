@@ -6,21 +6,16 @@ import { useRouter } from 'next/router'
 import Profile from './Profile'
 
 
-export default function Navbar({ user,userData}) {
+export default function Navbar({ user,userData,session}) {
     const router = useRouter()
-    const [userDetails, setUserDetails] = useState({})
+
 
     useEffect(() => {
-        console.log(userData);
-        getUserID();
+       
     
     },[])
-    const getUserID = async ()=>{
-      
-        await axios.post("/api/userId", { email: user.email }).then((res) => {
-            setUserDetails(res.data);
-        });
-    } 
+ 
+   
  
   const home =()=>{
     router.push('/');
@@ -63,7 +58,7 @@ export default function Navbar({ user,userData}) {
                                 <div className='position-relative d-flex align-items-center'>
                                 {user.email===process.env.ADMIN_ID?"":
                                 
-                                 <Link href={`/component/Cart?uid=${userDetails._id}`} className="">
+                                 <Link href={`/component/Cart?uid=${session.user._id}`} className="">
                                  <a className=' d-flex align-items-center ms-2'>
                                      <div className='d-flex align-items-center' >
                                         <box-icon name='cart' size="40px" color='black'></box-icon>
@@ -79,7 +74,7 @@ export default function Navbar({ user,userData}) {
                                 <div className='d-flex align-items-center ms-3' onClick={() => logout()} style={{cursor:"pointer"}}>
                                 <box-icon name='log-out-circle' size="40px" rotate='180' color='black'></box-icon>
                                 </div>
-                                <Profile user={user} userDetails={userDetails} userData={userData}/>
+                                <Profile user={user} session={session}/>
                             </div>
                         }
 

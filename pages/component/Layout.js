@@ -2,13 +2,13 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Navbar from './Navbar'
 
-export default function Layout({children,providers,session,userData}) {
+export default function Layout({children,providers,session}) {
 useEffect(()=>{
 // console.log(userData);
 },[])
   return (
     <>
-    <Navbar  user={session===null?"":session.user} userData={userData}/>
+    <Navbar  user={session===null?"":session.user} session={session===null?"":session}/>
       {children}
     </>
   )

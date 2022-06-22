@@ -18,16 +18,12 @@ export default function Dashboard({ user }) {
         else{
             loadusers();
         }
-      
     }, [])
     const loadusers = async () => {
         await axios.get("/api/resturant").then((res) => {
             setRestaurant(res.data)
-         
         });
-
     }
-   
     if(user){
         return (
             <>
@@ -59,8 +55,6 @@ export default function Dashboard({ user }) {
                                 </div>
                             )
                         })}
-    
-    
                     </div>
                 </div>
             </>

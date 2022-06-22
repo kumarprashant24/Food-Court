@@ -1,26 +1,26 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-export default function Profile({ user, userDetails ,userData}) {
-    // const [userData,setUserData]=useState({})
+export default function Profile({ user,session}) {
+
     const [inputs, setInputs] = useState({
-        phone_number: userData.phone_number,
-        shipping_address: userData.shipping_address,
-        landmark: userData.landmark,
-        city: userData.city,
-        state: userData.state,
-        zip: userData.zip
+        phone_number: session.user.phone_number,
+        shipping_address: session.user.shipping_address,
+        landmark: session.user.landmark,
+        city: session.user.city,
+        state: session.user.state,
+        zip: session.user.zip
     })
     const OnInputChange = e => {
         setInputs({ ...inputs, [e.target.name]: e.target.value })
     };
     const updateProfile = async() => {
-        await axios.post('/api/updateUserProfile',{data:inputs,uid:userDetails._id}).then((res)=>{
+        await axios.post('/api/updateUserProfile',{data:inputs,uid:session.user._id}).then((res)=>{
             alert('data updated')
         })
     }
     useEffect(() => {
-      console.log(userData);
+    //   console.log(session);
     }, [])
    
   

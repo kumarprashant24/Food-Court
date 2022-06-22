@@ -79,7 +79,7 @@ export default function Cart({ providers, session }) {
                                     <div className='partition text-muted'>{element.food_name}</div>
                                     <div className='partition-mid text-center text-black-50'>1 x {element.quantity}</div>
                                     <div className='d-flex align-items-center justify-content-end partition '>
-                                        <div className='text-success fw-bold'><span className='me-2'>₹</span>{element.price}</div>
+                                        <div className='text-success fw-bold'><span className='me-2'>₹</span>{element.price * element.quantity}</div>
                                         <i className="fa-solid fa-xmark ms-3 text-white p-1 d-flex justify-content-center align-items-center bg-danger cross" onClick={() => removeItem(index) } ></i>
                                     </div>
     
