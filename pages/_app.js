@@ -6,6 +6,8 @@ import Navbar from './component/Navbar'
 import { providers, getSession } from "next-auth/client"
 import { useEffect, useState } from 'react'
 import Layout from './component/Layout'
+import axios from 'axios'
+
 
 
 function MyApp({
@@ -38,6 +40,7 @@ useEffect(()=>{
 
 }
 MyApp.getInitialProps = async (context) => {
+
 
   return {
     providers: await providers(context),

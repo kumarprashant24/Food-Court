@@ -5,16 +5,11 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import Profile from './Profile'
 
+export default function Navbar({ user,userData,session,}) {
 
-export default function Navbar({ user,userData,session}) {
     const [bag,setBag] = useState({})
     const router = useRouter()
 
-
-    useEffect(() => {
-       
-       
-    },[])
 
    
  
@@ -48,12 +43,12 @@ export default function Navbar({ user,userData,session}) {
                                 <div className='d-flex' data-bs-toggle="modal" data-bs-target="#exampleModal" style={{cursor:"pointer"}}>
                                 <img src={user.image} className="rounded-circle" style={{ height: '50px', width: '50px' }} />
                                
-                               <div className='d-flex align-items-center ms-2 ' >{user.name}</div>
+                               <div className='d-flex align-items-center ms-2  text-black-50 fw-bold' >{user.name}</div>
                        
                                 </div>
                                
                                 <div className='d-flex align-items-center ms-3 position-relative ' onClick={home} style={{cursor:"pointer"}}> 
-                                <box-icon name='home' size="40px" color='black'></box-icon>
+                                <box-icon name='home' size="40px" color='rgba(0,0,0,.5)'></box-icon>
                  
                                 </div>
                                 <div className='position-relative d-flex align-items-center'>
@@ -62,8 +57,8 @@ export default function Navbar({ user,userData,session}) {
                                  <Link href={`/component/Cart?uid=${session.user._id}`} className="">
                                  <a className=' d-flex align-items-center ms-2'>
                                      <div className='d-flex align-items-center' >
-                                        <box-icon name='cart' size="40px" color='black'></box-icon>
-                                        {/* <div className='bag d-flex justify-content-center align-items-center text-white'>{}</div> */}
+                                        <box-icon name='cart' size="40px" color='rgba(0,0,0,.5)'></box-icon>
+                                        <div className='bag d-flex justify-content-center align-items-center text-white'>{session.cart.order_details.length}</div>
                                         </div>
                                  </a>
 
@@ -73,7 +68,7 @@ export default function Navbar({ user,userData,session}) {
                                 </div>
                                
                                 <div className='d-flex align-items-center ms-3' onClick={() => logout()} style={{cursor:"pointer"}}>
-                                <box-icon name='log-out-circle' size="40px" rotate='180' color='black'></box-icon>
+                                <box-icon name='log-out-circle' size="40px" rotate='180' color='rgba(0,0,0,.5)'></box-icon>
                                 </div>
                                 <Profile user={user} session={session}/>
                             </div>
@@ -85,4 +80,3 @@ export default function Navbar({ user,userData,session}) {
         </>
     )
 }
-

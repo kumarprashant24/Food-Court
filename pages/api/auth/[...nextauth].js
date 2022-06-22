@@ -5,7 +5,10 @@ import { signIn } from "next-auth/client";
 import GoogleProvider from "next-auth/providers/google"
 import conn from '../../../dbConn'
 
-import user from '../../../models/user.model'
+
+import user from '../../../models/user.model';
+import cartModel from "../../../models/cart.model";
+
 conn();
 
 
@@ -40,7 +43,9 @@ export default NextAuth({
 
         const uid = mongoose.Types.ObjectId(token.id);
         const data = await user.findById(uid);
+        const cart = await cartModel.findOne({ordered_by:uid})
         session.user = data
+        session.cart = cart
       
         return session
   

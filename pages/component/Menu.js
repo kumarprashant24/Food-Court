@@ -39,7 +39,7 @@ export default function Menu({ providers, session }) {
     }
     const addToBag = async (item, e) => {
         e.preventDefault();
-        await axios.post("/api/bag", { order_details: [{ restro_name: restro.name, food_name: item.food_name, price: item.price, picture: item.image, quantity: quantity }], ordered_by: session.user.id }).then((res) => {
+        await axios.post("/api/bag", { order_details: [{ restro_name: restro.name, food_name: item.food_name, price: item.price, picture: item.image, quantity: quantity }], ordered_by: session.user._id }).then((res) => {
             toast.success('Added to bag')
         });
 

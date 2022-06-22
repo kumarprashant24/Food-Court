@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Profile({ user,session}) {
 
     const [inputs, setInputs] = useState({
@@ -16,7 +17,7 @@ export default function Profile({ user,session}) {
     };
     const updateProfile = async() => {
         await axios.post('/api/updateUserProfile',{data:inputs,uid:session.user._id}).then((res)=>{
-            alert('data updated')
+            // alert('Data Updated')
         })
     }
     useEffect(() => {
@@ -26,6 +27,8 @@ export default function Profile({ user,session}) {
   
 
     return (
+        <>
+      
         <div>
 
             <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -82,5 +85,7 @@ export default function Profile({ user,session}) {
                 </div>
             </div>
         </div>
+        <ToastContainer theme="colored" />
+        </>
     )
 }
