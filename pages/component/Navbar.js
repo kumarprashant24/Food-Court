@@ -1,17 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext,createContext, useEffect, useState } from 'react'
 import { signOut } from "next-auth/client"
 import Link from 'next/link'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Profile from './Profile'
+import {useSelector,useDispatch} from 'react-redux'
+
 
 export default function Navbar({ user,userData,session,}) {
-
-    const [bag,setBag] = useState({})
+    const myState = useSelector((state)=>
+    state.changeNumber
+  )
+ 
     const router = useRouter()
 
 
-   
+
+
+   useEffect(()=>{
+    
+   },[])
  
   const home =()=>{
     router.push('/');
@@ -58,7 +66,7 @@ export default function Navbar({ user,userData,session,}) {
                                  <a className=' d-flex align-items-center ms-2'>
                                      <div className='d-flex align-items-center' >
                                         <box-icon name='cart' size="40px" color='rgba(0,0,0,.5)'></box-icon>
-                                        <div className='bag d-flex justify-content-center align-items-center text-white'>{session.cart.order_details.length}</div>
+                                        <div className='bag d-flex justify-content-center align-items-center text-white'>{myState}</div>
                                         </div>
                                  </a>
 

@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 
 export default function Dashboard({ user }) {
     const router = useRouter()
+  
 
     const [restaurant, setRestaurant] = useState([]);
     useEffect(() => {
@@ -24,6 +25,7 @@ export default function Dashboard({ user }) {
             setRestaurant(res.data)
         });
     }
+
     if(user){
         return (
             <>

@@ -24,8 +24,7 @@ export default function Cart({ providers, session }) {
     }
     const removeItem = async (indexItem) => {
         await axios.post("/api/removeItem", { index: indexItem, uid: uid }).then((res) => {
-            console.log(res);
-            toggleRefresh();
+        toggleRefresh();
         });
      
     }
