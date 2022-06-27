@@ -13,6 +13,11 @@ const cartSchema = new mongoose.Schema({
   ordered_by: {
     type: Schema.Types.ObjectId, ref: 'user' 
   }, 
+  order_placed:[{
+     items:[],
+     grand_total:String,
+     status:String,
+  }]
 });
 
 module.exports = mongoose.models.cart ||  mongoose.model('cart', cartSchema);

@@ -39,7 +39,7 @@ export default function Navbar({ user,userData,session,}) {
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
                                 <Link  href="/component/Dashboard">
-                                <a className="nav-link active d-flex align-items-center fw-bold" aria-current="page"><div><i className="fa-solid fa-2x fa-seedling me-2"></i></div>Food Court</a>
+                                <a className="nav-link active d-flex align-items-center fw-bold" aria-current="page"><div><i className="fa-solid fa-2x fa-seedling me-2 text-success"></i></div>Food Court</a>
 
                                 </Link>
                             </li>

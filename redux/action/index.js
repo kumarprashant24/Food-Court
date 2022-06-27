@@ -1,6 +1,4 @@
 
-import axios from "axios"
-import { providers, getSession } from "next-auth/client"
 
 
 export const increase = (session) => {
@@ -14,8 +12,14 @@ export const decrease = (session) => {
 }
 
 export const chekLogin = (session) => {
-  
+    if(!session)
+    {
+    return({ type: "LOGIN_SUCCESS", payload: { cart:0} })
+    }
+  else{
     return({ type: "LOGIN_SUCCESS", payload: { cart:session.cart.order_details.length} })
+
+  }
 }
     
     

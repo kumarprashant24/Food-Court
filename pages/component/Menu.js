@@ -4,7 +4,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useDispatch } from 'react-redux'
-import { increase } from '../../redux/action'
+import { increase,chekLogin } from '../../redux/action'
 
 export default function Menu({ providers, session }) {
     const [menu, setMenu] = useState([])
@@ -19,6 +19,7 @@ export default function Menu({ providers, session }) {
             router.push('/')
         }
         else {
+            dispatch(chekLogin(session));
             loadusers();
         }
 
@@ -100,7 +101,7 @@ export default function Menu({ providers, session }) {
 
 
                 </div>
-                <ToastContainer theme="colored" />
+           
             </>
         )
     }
