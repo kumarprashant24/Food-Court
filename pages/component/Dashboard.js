@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import Navbar from './Navbar';
 import Link from 'next/link'
-import Login from './Login';
 import { useRouter } from 'next/router'
 
 

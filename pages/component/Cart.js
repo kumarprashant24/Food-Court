@@ -1,9 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import Navbar from './Navbar'
 import { useRouter } from "next/router";
 import Dashboard from './Dashboard';
-export default function Cart({ providers, session }) {
+import {useDispatch } from 'react-redux'
+import { chekLogin, decrease } from '../../redux/action/index'
+
+export default function Cart({ session }) {
+    const dispatch = useDispatch();
     const [items, setItems] = useState([]);
     let grandTotal = 0;
     const router = useRouter()
@@ -12,34 +15,40 @@ export default function Cart({ providers, session }) {
     const toggleRefresh = () => setRefresh((p) => !p);
 
     useEffect(() => {
+
         loadusers();
     }, [refresh])
+
+    useEffect(() => {
+        dispatch(chekLogin(session));
+    }, [])
 
     const loadusers = async (e) => {
 
         await axios.post("/api/showCartItems", { id: uid }).then((res) => {
- 
+
             setItems(res.data.order_details);
         });
     }
     const removeItem = async (indexItem) => {
+        dispatch(decrease(session));
         await axios.post("/api/removeItem", { index: indexItem, uid: uid }).then((res) => {
-        toggleRefresh();
+            toggleRefresh();
         });
-     
+
     }
-    if(!session)
-    {
-        return(
+    if (!session) {
+        return (
             <Dashboard></Dashboard>
         )
-     
+
     }
-    else{
+
+    else {
         return (
             <div className='container-fluid'>
                 <div className='row mt-4'>
-    
+
                     <div className='col-md-6 scroll border-end'>
                         <h3 className='mt-4 text-black-50'>Your Order Details</h3>
                         {items.map((element, index) => {
@@ -55,14 +64,14 @@ export default function Cart({ providers, session }) {
                                                 <p className="card-text d-flex">Price: <div className='d-flex ms-2 text-success fw-bold'><div>₹</div><div>{element.price}</div></div></p>
                                                 <p className="card-text">Quantity: <span>{element.quantity}</span></p>
                                                 <p className="card-text">Ordered From: <span>{element.restro_name} </span></p>
-    
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </>
                         })}
-    
+
                     </div>
                     <div className='col-md-6 scroll'>
                         <h3 className='mt-4 text-black-50'>Your Order Summary</h3>
@@ -79,12 +88,12 @@ export default function Cart({ providers, session }) {
                                     <div className='partition-mid text-center text-black-50'>1 x {element.quantity}</div>
                                     <div className='d-flex align-items-center justify-content-end partition '>
                                         <div className='text-success fw-bold'><span className='me-2'>₹</span>{element.price * element.quantity}</div>
-                                        <i className="fa-solid fa-xmark ms-3 text-white p-1 d-flex justify-content-center align-items-center bg-danger cross" onClick={() => removeItem(index) } ></i>
+                                        <i className="fa-solid fa-xmark ms-3 text-white p-1 d-flex justify-content-center align-items-center bg-danger cross" onClick={() => removeItem(index)} ></i>
                                     </div>
-    
+
                                 </div>
                             </>
-    
+
                         })}
                         <div className='d-flex justify-content-between mt-3 border-bottom border-top p-4'>
                             <div className='fw-bold'>Grand Total</div>
@@ -96,9 +105,9 @@ export default function Cart({ providers, session }) {
                         </div>
                     </div>
                 </div>
-    
+
             </div>
         )
     }
-   
+
 }

@@ -1,12 +1,9 @@
 import '../styles/globals.css'
-
 import Head from 'next/head'
 import Script from 'next/script'
-import Navbar from './component/Navbar'
 import { providers, getSession } from "next-auth/client"
 import React, { useEffect, useState } from 'react'
 import Layout from './component/Layout'
-import axios from 'axios'
 import { Provider } from 'react-redux'
 import store from '../redux/store'
 function MyApp({
@@ -14,10 +11,11 @@ function MyApp({
   pageProps, providers, session
 }) {
   useEffect(() => {
-    console.log(session);
+
+    // console.log(session);
 
   }, [])
-
+ 
   return <>
 
     <Head>
@@ -46,6 +44,4 @@ MyApp.getInitialProps = async (context) => {
     session: await getSession(context),
   }
 }
-
-export const sess = 5
 export default MyApp

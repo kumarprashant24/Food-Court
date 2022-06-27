@@ -3,17 +3,15 @@ import { useRouter } from "next/router";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Navbar from './Navbar';
-import {useSelector,useDispatch} from 'react-redux'
-import { increase} from '../../redux/action/index'
+import {useDispatch } from 'react-redux'
+import { increase } from '../../redux/action'
 
 export default function Menu({ providers, session }) {
     const [menu, setMenu] = useState([])
     const [restro, setRestro] = useState({})
     const [quantity, setQuantity] = useState(1)
-
     const dispatch = useDispatch();
- 
+
     const router = useRouter()
     const { rest_id } = router.query
     useEffect(() => {
@@ -34,37 +32,31 @@ export default function Menu({ providers, session }) {
         });
     }
     const minus = () => {
-       
+
         if (quantity !== 1) {
             setQuantity(quantity - 1);
         }
     }
     const plus = () => {
-       
+
         setQuantity(quantity + 1);
     }
     const addToBag = async (item, e) => {
         e.preventDefault();
-       
+
         await axios.post("/api/bag", { order_details: [{ restro_name: restro.name, food_name: item.food_name, price: item.price, picture: item.image, quantity: quantity }], ordered_by: session.user._id }).then((res) => {
             toast.success('Added to bag')
-            dispatch(increase());
+            dispatch(increase(session));
         });
-       
+
 
     }
     if (session) {
         return (
             <>
-
-
                 <div className='container mt-4'>
                     <h1>{restro.name} Menu</h1>
-                  
-
-
-
-       {menu.map((element, index) => {
+                    {menu.map((element, index) => {
                         return <>
                             <div className='container  mt-5' key={index}>
                                 <div className='row border'>
@@ -72,7 +64,7 @@ export default function Menu({ providers, session }) {
                                         <div className="card border-0 ">
                                             <div className="row">
                                                 <div className="col-md-6">
-                                                    <img src={element.image} className=" img-fluid rounded-start"  alt="..." />
+                                                    <img src={element.image} className=" img-fluid rounded-start" alt="..." />
                                                 </div>
                                                 <div className="col-md-6  d-flex align-items-center">
                                                     <div className="card-body ">
@@ -92,15 +84,15 @@ export default function Menu({ providers, session }) {
                                     <div className='col-md-4  d-flex justify-content-end p-0'>
                                         <div className='text-success fw-bold d-flex  align-items-center me-3'>
                                             <span className='me-2'>₹</span>{element.price}
-    
+
                                         </div>
-                                        <div className='bg-success d-flex align-items-center' onClick={(e)=>addToBag(element,e)} style={{cursor:'pointer'}}><i className="fa-solid fa-chevron-right p-3 text-white "></i></div>
-                                        
+                                        <div className='bg-success d-flex align-items-center' onClick={(e) => addToBag(element, e)} style={{ cursor: 'pointer' }}><i className="fa-solid fa-chevron-right p-3 text-white "></i></div>
+
                                     </div>
                                 </div>
-    
-    
-    
+
+
+
                             </div>
                         </>
                     })}

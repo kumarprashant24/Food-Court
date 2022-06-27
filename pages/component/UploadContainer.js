@@ -17,8 +17,8 @@ export default function UploadContainer({ user }) {
     const [loading1, setLoading1] = useState(false)
     const [inputs, setInputs] = useState({
         restro_name: "",
-        discription:"",
-        city:""
+        discription: "",
+        city: ""
     });
     const [inputs1, setInputs1] = useState({
         food_name: "",
@@ -76,12 +76,12 @@ export default function UploadContainer({ user }) {
         await axios.post("/api/addRestaurant", { name: inputs.restro_name, menu: [], picture: restroPic }).then((res) => {
             toast.success("Restaurant Added")
             toggleRefresh();
-         setInputs({
-            restro_name: "",
-            discription:"",
-            city:""
-         })
-         setRestroPic('');
+            setInputs({
+                restro_name: "",
+                discription: "",
+                city: ""
+            })
+            setRestroPic('');
 
         });
     }
@@ -98,8 +98,8 @@ export default function UploadContainer({ user }) {
                 price: "",
             });
             setDishPic('');
-        const select = document.getElementById('food_restro');
-        select.selectedIndex = 0; 
+            const select = document.getElementById('food_restro');
+            select.selectedIndex = 0;
         });
     }
 

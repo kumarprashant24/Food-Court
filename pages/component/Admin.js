@@ -13,7 +13,6 @@ export default function Admin({user}) {
             <hr/>
             <div className='row mt-5 '>
                 <div className='col-md-12 '>
-                    {/* <h3 className='mt-4 text-black-50'>Restaurant Details</h3> */}
                     <UploadContainer user={user}/>
                 </div>
             

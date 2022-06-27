@@ -1,10 +1,9 @@
 import React, { useContext,createContext, useEffect, useState } from 'react'
 import { signOut } from "next-auth/client"
 import Link from 'next/link'
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import Profile from './Profile'
-import {useSelector,useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 
 
 export default function Navbar({ user,userData,session,}) {
