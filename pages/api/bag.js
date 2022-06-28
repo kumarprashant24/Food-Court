@@ -16,5 +16,5 @@ export default async function bag(req, res) {
     result.save();
    }
    res.send({message:'success'})
-   // console.log(result);
+ 
   }

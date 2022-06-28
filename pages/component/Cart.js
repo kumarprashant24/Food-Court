@@ -5,7 +5,7 @@ import Dashboard from './Dashboard';
 import { useDispatch } from 'react-redux'
 import { chekLogin, decrease } from '../../redux/action/index'
 import Link from 'next/link';
-import {  toast } from 'react-toastify';
+import {  toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Cart({ session }) {
@@ -107,7 +107,7 @@ export default function Cart({ session }) {
                                         <div className='partition-mid text-center text-black-50'>1 x {element.quantity}</div>
                                         <div className='d-flex align-items-center justify-content-end partition '>
                                             <div className='text-success fw-bold'><span className='me-2'>₹</span>{element.price * element.quantity}</div>
-                                            <i className="fa-solid fa-xmark ms-3 text-white p-1 d-flex justify-content-center align-items-center bg-danger cross" onClick={() => removeItem(index)} ></i>
+                                            <i className="fa-solid fa-xmark ms-3 text-white d-flex justify-content-center align-items-center bg-danger cross" onClick={() => removeItem(index)} ></i>
                                         </div>
 
                                     </div>
@@ -128,8 +128,8 @@ export default function Cart({ session }) {
                     </div>
 
                 </div>
+<ToastContainer theme="colored"/>
         
-
             </>
 
         )

@@ -104,6 +104,7 @@ export default function Menu({ providers, session }) {
 
 
                 </div>
+<ToastContainer theme="colored"/>
            
             </>
         )
