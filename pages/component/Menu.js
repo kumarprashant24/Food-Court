@@ -9,7 +9,6 @@ import { increase,chekLogin } from '../../redux/action'
 export default function Menu({ providers, session }) {
     const [menu, setMenu] = useState([])
     const [restro, setRestro] = useState({})
-    const [quantity, setQuantity] = useState(1)
     const dispatch = useDispatch();
 
     const router = useRouter()
@@ -32,18 +31,22 @@ export default function Menu({ providers, session }) {
             setRestro(res.data);
         });
     }
-    const minus = () => {
-
-        if (quantity !== 1) {
-            setQuantity(quantity - 1);
+    const minus = (e,index) => {
+        const quantity = document.getElementById(index);
+        if (parseInt(quantity.innerText) !== 1) {
+            quantity.innerHTML =  parseInt(quantity.innerText)-1;
         }
     }
-    const plus = () => {
+    const plus = (e,index) => {
 
-        setQuantity(quantity + 1);
+        const quantity = document.getElementById(index);
+   
+        quantity.innerHTML =  parseInt(quantity.innerText)+1;
+   
     }
-    const addToBag = async (item, e) => {
+    const addToBag = async (item, e,index) => {
         e.preventDefault();
+        const quantity = document.getElementById(index).innerText;
 
         await axios.post("/api/bag", { order_details: [{ restro_name: restro.name, food_name: item.food_name, price: item.price, picture: item.image, quantity: quantity }], ordered_by: session.user._id }).then((res) => {
             toast.success('Added to bag')
@@ -77,9 +80,9 @@ export default function Menu({ providers, session }) {
                                     </div>
                                     <div className='col-md-4  d-flex justify-content-center'>
                                         <div className=' fw-bold d-flex  align-items-center' >
-                                            <button className='btn btn-danger me-2' onClick={minus}>-</button>
-                                            <div>x {quantity}</div>
-                                            <button className='btn btn-success ms-2' onClick={plus}>+</button>
+                                            <button className='btn btn-danger me-2' onClick={(e)=>minus(e,index)}>-</button>
+                                            <div>x <span id={index}>1</span></div>
+                                            <button className='btn btn-success ms-2' onClick={(e)=>{plus(e,index)}}>+</button>
                                         </div>
                                     </div>
                                     <div className='col-md-4  d-flex justify-content-end p-0'>
@@ -87,7 +90,7 @@ export default function Menu({ providers, session }) {
                                             <span className='me-2'>₹</span>{element.price}
 
                                         </div>
-                                        <div className='bg-success d-flex align-items-center' onClick={(e) => addToBag(element, e)} style={{ cursor: 'pointer' }}><i className="fa-solid fa-chevron-right p-3 text-white "></i></div>
+                                        <div className='bg-success d-flex align-items-center' onClick={(e) => addToBag(element, e,index)} style={{ cursor: 'pointer' }}><i className="fa-solid fa-chevron-right p-3 text-white "></i></div>
 
                                     </div>
                                 </div>

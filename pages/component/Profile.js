@@ -31,7 +31,7 @@ export default function Profile({ user,session}) {
       
         <div>
 
-            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -45,47 +45,47 @@ export default function Profile({ user,session}) {
                             </div>
 
                             <div className='mt-3'><span className='fw-bold me-2'>Authorized Email: </span>{user.email}</div>
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <input type="text" class="form-control" placeholder="Phone Number" aria-label="" name='phone_number' onChange={(e) => OnInputChange(e)} value={inputs.phone_number} />
+                            <div className="row mt-3">
+                                <div className="col">
+                                    <input type="text" className="form-control" placeholder="Phone Number" aria-label="" name='phone_number' onChange={(e) => OnInputChange(e)} value={inputs.phone_number} />
                                 </div>
                             </div>
 
-                            <div class="row g-3 mt-2">
-                                <div class="col-12">
-                                    <label for="inputAddress" class="form-label" >Shipping Address</label>
-                                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name='shipping_address' onChange={(e) => OnInputChange(e)} value={inputs.shipping_address} />
+                            <div className="row g-3 mt-2">
+                                <div className="col-12">
+                                    <label htmlFor="inputAddress" className="form-label" >Shipping Address</label>
+                                    <input type="text" className="form-control" id="inputAddress" placeholder="1234 Main St" name='shipping_address' onChange={(e) => OnInputChange(e)} value={inputs.shipping_address} />
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="inputEmail4" class="form-label" >Lankmark</label>
-                                    <input type="text" class="form-control" name='landmark' onChange={(e) => OnInputChange(e)} value={inputs.landmark} />
+                                <div className="col-md-6">
+                                    <label htmlFor="inputEmail4" className="form-label" >Lankmark</label>
+                                    <input type="text" className="form-control" name='landmark' onChange={(e) => OnInputChange(e)} value={inputs.landmark} />
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="inputPassword4" class="form-label" >City</label>
-                                    <input type="text" class="form-control" name='city' id="inputPassword4" onChange={(e) => OnInputChange(e)} value={inputs.city} />
+                                <div className="col-md-6">
+                                    <label htmlFor="inputPassword4" className="form-label" >City</label>
+                                    <input type="text" className="form-control" name='city' id="inputPassword4" onChange={(e) => OnInputChange(e)} value={inputs.city} />
                                 </div>
 
-                                <div class="col-md-6">
-                                    <label for="inputState" class="form-label">State</label>
-                                    <input type="text" class="form-control" name='state' id="inputPassword4" onChange={(e) => OnInputChange(e)} value={inputs.state} />
+                                <div className="col-md-6">
+                                    <label htmlFor="inputState" className="form-label">State</label>
+                                    <input type="text" className="form-control" name='state' id="inputPassword4" onChange={(e) => OnInputChange(e)} value={inputs.state} />
 
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="inputZip" class="form-label">Zip</label>
-                                    <input type="text" class="form-control" id="inputZip" name='zip' onChange={(e) => OnInputChange(e)} value={inputs.zip} />
+                                <div className="col-md-6">
+                                    <label htmlFor="inputZip" className="form-label">Zip</label>
+                                    <input type="text" className="form-control" id="inputZip" name='zip' onChange={(e) => OnInputChange(e)} value={inputs.zip} />
                                 </div>
                             </div>
 
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" onClick={updateProfile}>Save changes</button>
+                            <button type="button" className="btn btn-primary" onClick={updateProfile}>Save changes</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <ToastContainer theme="colored" />
+      
         </>
     )
 }

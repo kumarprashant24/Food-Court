@@ -112,6 +112,14 @@ a:hover{
   height: 150px;
   overflow-y: auto;
 }
+
+div::-webkit-scrollbar {
+  width: 7px;
+}
+div::-webkit-scrollbar-thumb{
+  background-image: linear-gradient(to top, #00b09b, #96c93d);
+  border-radius: 25px;
+}
 @media only screen and (max-width: 980px) {
   .cross{
 

@@ -13,9 +13,6 @@ export default function Navbar({ user,userData,session,}) {
  
     const router = useRouter()
 
-
-
-
    useEffect(()=>{
     
    },[])
@@ -25,7 +22,7 @@ export default function Navbar({ user,userData,session,}) {
   }
     const logout =()=>{
         signOut();
-        // router.push('/')
+  
     }
     return (
         <>

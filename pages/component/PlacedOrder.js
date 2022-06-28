@@ -57,7 +57,7 @@ export default function PlacedOrder({ session }) {
                     <div className='row gy-4'>
                         {placed.map((element, index) => {
                             return (
-                                <div className='col-md-4'>
+                                <div className='col-md-4' key={index}>
                                     <div className="card">
                                         <div className="card-body">
                                             <h5 className="card-title">Food Items</h5>
@@ -65,7 +65,7 @@ export default function PlacedOrder({ session }) {
                                             <div className='food_items'>
                                             {element.items.map((e, i) => {
                                                 
-                                                return <h6 className="card-subtitle mb-2 text-muted mt-2">{e}</h6>
+                                                return <h6 className="card-subtitle mb-2 text-muted mt-2" key={i}>{e}</h6>
                                             })}
                                             </div>
                                            

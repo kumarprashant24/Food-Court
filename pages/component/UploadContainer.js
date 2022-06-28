@@ -153,11 +153,6 @@ export default function UploadContainer({ user }) {
 
                     </div>
 
-
-
-
-
-                    {/* <h3 style={{padding:'0'}}>Restaurant Details</h3> */}
                     <div className='container col-sm-5 border mt-5 rounded'>
 
                         <div className=" mt-5">
@@ -165,9 +160,9 @@ export default function UploadContainer({ user }) {
                                 <option selected>Select Restaurant</option>
                                 {restaurant.map((element, index) => {
                                     return (
-                                        <>
+                                        <div key={index}>
                                             <option value={element._id}>{element.name}</option>
-                                        </>
+                                        </div>
                                     )
                                 })}
 
@@ -210,7 +205,6 @@ export default function UploadContainer({ user }) {
                     </div>
                 </div>
 
-                <ToastContainer theme="colored" />
 
             </>
         )
