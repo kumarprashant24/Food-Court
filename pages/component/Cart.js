@@ -5,7 +5,7 @@ import Dashboard from './Dashboard';
 import { useDispatch } from 'react-redux'
 import { chekLogin, decrease } from '../../redux/action/index'
 import Link from 'next/link';
-import {  toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Cart({ session }) {
@@ -38,9 +38,15 @@ export default function Cart({ session }) {
         });
     }
     const removeItem = async (indexItem) => {
-        dispatch(decrease(session));
+
         await axios.post("/api/removeItem", { index: indexItem, uid: uid }).then((res) => {
-            toggleRefresh();
+        
+            if (res.data.message === 'success') {
+                console.log('sess');
+                dispatch(decrease(session));
+                toggleRefresh();
+            }
+
         });
 
     }
@@ -68,27 +74,23 @@ export default function Cart({ session }) {
                         <div className='col-md-6 scroll border-end'>
                             <h3 className='mt-4 text-black-50'>Your Order Details</h3>
                             {items.map((element, index) => {
-
                                 return <>
+                                    <div className='blog-post shadow-lg mb-3 bg-body rounded mt-4' key={index}>
+                                        <div className='blog-post_img'>
+                                            <img src={element.picture} />
+                                        </div>
+                                        <div className="">
+                                            <h5 className="card-title">{element.food_name}</h5>
+                                            <p className="card-text d-flex">Price: <div className='d-flex ms-2 text-success fw-bold'><div>₹</div><div>{element.price}</div></div></p>
+                                            <p className="card-text">Quantity: <span>{element.quantity}</span></p>
+                                            <p className="card-text">Ordered From: <span>{element.restro_name} </span></p>
 
-                                    <div className="card mb-3" key={index} >
-                                        <div className="row g-0">
-                                            <div className="col-md-4">
-                                                <img src={element.picture} className="card-img-top img-fluid rounded-start" alt="..." />
-                                            </div>
-                                            <div className="col-md-8">
-                                                <div className="card-body">
-                                                    <h5 className="card-title">{element.food_name}</h5>
-                                                    <p className="card-text d-flex">Price: <div className='d-flex ms-2 text-success fw-bold'><div>₹</div><div>{element.price}</div></div></p>
-                                                    <p className="card-text">Quantity: <span>{element.quantity}</span></p>
-                                                    <p className="card-text">Ordered From: <span>{element.restro_name} </span></p>
-
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </>
+
                             })}
+
 
                         </div>
                         <div className='col-md-6 scroll'>
@@ -107,7 +109,9 @@ export default function Cart({ session }) {
                                         <div className='partition-mid text-center text-black-50'>1 x {element.quantity}</div>
                                         <div className='d-flex align-items-center justify-content-end partition '>
                                             <div className='text-success fw-bold'><span className='me-2'>₹</span>{element.price * element.quantity}</div>
-                                            <i className="fa-solid fa-xmark ms-3 text-white d-flex justify-content-center align-items-center bg-danger cross" onClick={() => removeItem(index)} ></i>
+                                            <div onClick={() => removeItem(index)} className=" p-2">
+                                                <i className="fa-solid fa-xmark ms-3 text-white d-flex justify-content-center align-items-center  bg-danger cross" ></i>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -128,8 +132,8 @@ export default function Cart({ session }) {
                     </div>
 
                 </div>
-<ToastContainer theme="colored"/>
-        
+                <ToastContainer theme="colored" />
+
             </>
 
         )

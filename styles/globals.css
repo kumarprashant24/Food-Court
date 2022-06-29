@@ -43,8 +43,14 @@ a {
 }
 .card-img-top {
   width: 100%;
-  height: 20vh;
-  object-fit: cover;
+  height: 30vh;
+  
+}
+.card-img-top-cart{
+  width: 100%;
+  height: 100%
+
+  
 }
 .scroll{
   height: 90vh;
@@ -55,6 +61,7 @@ a {
   width: 20%;
 }
 .partition-mid{
+ 
   width: 40%;
 }
 .cross{
@@ -120,11 +127,50 @@ div::-webkit-scrollbar-thumb{
   background-image: linear-gradient(to top, #00b09b, #96c93d);
   border-radius: 25px;
 }
+
+.cart-card{
+  height: 30vh;
+}
+
+.blog-post{
+  width: 100%;
+  max-width: 98rem;
+  padding: 1rem;
+  background-color: grey;
+  display: flex;
+  align-items: center;
+  border-radius: .8rem;
+}
+.blog-post_img{
+  min-width: 30rem;
+  max-width: 30rem;
+  height: 15rem;
+  transform: translateX(-2rem);
+  position: relative;
+}
+.blog-post_img img{
+width: 100%;
+height: 100%;
+object-fit: cover;
+border-radius: .8rem;
+}
 @media only screen and (max-width: 980px) {
   .cross{
-
-    height: 20px;
+    height: 26px;
     width: 25px;
-   
+  }
+  .partition-mid{
+    position: relative;
+    top: 10px;
+    width: 40%;
+  }
+  .blog-post{
+    flex-direction: column;
+    align-items: start;
+  }
+  .blog-post_img{
+    min-width: 100%;
+    max-width: 100%;
+    transform: translate(0,-2rem);
   }
 }
