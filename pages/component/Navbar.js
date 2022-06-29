@@ -20,10 +20,7 @@ export default function Navbar({ user,userData,session,}) {
   const home =()=>{
     router.push('/');
   }
-    const logout =()=>{
-        signOut();
-  
-    }
+   
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light border-bottom">
@@ -71,7 +68,7 @@ export default function Navbar({ user,userData,session,}) {
                                 }
                                 </div>
                                
-                                <div className='d-flex align-items-center ms-3' onClick={() => logout()} style={{cursor:"pointer"}}>
+                                <div className='d-flex align-items-center ms-3' onClick={() =>   signOut()} style={{cursor:"pointer"}}>
                                 <box-icon name='log-out-circle' size="40px" rotate='180' color='rgba(0,0,0,.5)'></box-icon>
                                 </div>
                                 <Profile user={user} session={session}/>

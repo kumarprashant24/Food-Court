@@ -37,18 +37,27 @@ export default NextAuth({
       if (user) {
         token.id = user.id
       }
+      else{
+      
+      }
       return token
     },
     async session(session, token) {
-
+   
         const uid = mongoose.Types.ObjectId(token.id);
         const data = await user.findById(uid);
-        const cart = await cartModel.findOne({ordered_by:uid}).populate({
-          path: 'ordered_by',
-        })
-        session.user = data
-        session.cart = cart
-      
+  
+        const cart = await cartModel.findOne({ordered_by:uid})
+    
+        if(cart=== null)
+        {
+          session.user = data
+        }
+        else{
+          session.user = data
+          session.cart = cart
+        }
+   
         return session
   
     }

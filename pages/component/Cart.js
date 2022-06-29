@@ -30,12 +30,19 @@ export default function Cart({ session }) {
     }, [])
 
     const loadusers = async (e) => {
+        if(session === null || session.cart ===undefined)
+        {
 
-        await axios.post("/api/showCartItems", { id: uid }).then((res) => {
+        }
+        else{
+            await axios.post("/api/showCartItems", { id: uid }).then((res) => {
 
-            setItems(res.data.order_details);
+                setItems(res.data.order_details);
+    
+            });
+        }
 
-        });
+      
     }
     const removeItem = async (indexItem) => {
 

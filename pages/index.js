@@ -8,10 +8,13 @@ import { chekLogin } from '../redux/action/index'
 export default function Home({ providers, session }) {
   const dispatch = useDispatch();
 
-
+useEffect(()=>{
+  console.log(session);
+},[])
   if (!session) {
     return (
       <Login toggle={providers}></Login>
+  
     )
   }
   else if (session.user.email === process.env.ADMIN_ID) {

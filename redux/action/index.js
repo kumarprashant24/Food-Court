@@ -12,9 +12,16 @@ export const decrease = (session) => {
 }
 
 export const chekLogin = (session) => {
+ 
+
     if(!session)
     {
     return({ type: "LOGIN_SUCCESS", payload: { cart:0} })
+    }
+    else if(session.cart ===undefined)
+    {
+    return({ type: "LOGIN_SUCCESS", payload: { cart:0} })
+
     }
   else{
     return({ type: "LOGIN_SUCCESS", payload: { cart:session.cart.order_details.length} })

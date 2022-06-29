@@ -160,12 +160,15 @@ export default function UploadContainer({ user }) {
                                 <option selected>Select Restaurant</option>
                                 {restaurant.map((element, index) => {
                                     return (
-                                        <div key={index}>
-                                            <option value={element._id}>{element.name}</option>
-                                        </div>
+                                        
+                                            <option value={element._id} key={index}>{element.name}</option>
+                                        
                                     )
                                 })}
 
+                        
+                           
+                               
                             </select>
 
                             <div className='d-flex border-bottom mt-2'>
@@ -205,6 +208,7 @@ export default function UploadContainer({ user }) {
                     </div>
                 </div>
 
+                <ToastContainer theme="colored" />
 
             </>
         )
