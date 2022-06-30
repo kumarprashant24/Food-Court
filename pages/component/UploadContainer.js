@@ -108,7 +108,7 @@ export default function UploadContainer({ user }) {
 
             <>
                 <div className='row'>
-                  
+
                     <div className='container col-sm-5 border mt-5 rounded'>
                         <div className=" mt-5 ">
 
@@ -160,15 +160,10 @@ export default function UploadContainer({ user }) {
                                 <option selected>Select Restaurant</option>
                                 {restaurant.map((element, index) => {
                                     return (
-                                        
-                                            <option value={element._id} key={index}>{element.name}</option>
-                                        
+                                        <option value={element._id} key={index}>{element.name}</option>
                                     )
                                 })}
 
-                        
-                           
-                               
                             </select>
 
                             <div className='d-flex border-bottom mt-2'>
@@ -208,7 +203,7 @@ export default function UploadContainer({ user }) {
                     </div>
                 </div>
 
-                {/* <ToastContainer theme="colored" /> */}
+                <ToastContainer theme="colored" />
 
             </>
         )

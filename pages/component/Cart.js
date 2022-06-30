@@ -14,6 +14,8 @@ export default function Cart({ session }) {
     const [items, setItems] = useState([]);
     const itemName = []
     const [loading, setLoading] = useState(false)
+    const [uploaded, setUploaded] = useState(null)
+
 
     let grandTotal = 0;
     const router = useRouter()
@@ -38,9 +40,14 @@ export default function Cart({ session }) {
         else {
             setLoading(true)
 
-            await axios.post("/api/showCartItems", { id: uid }).then((res) => {
+            await axios.post("/api/showCartItems", { id: uid }, {
+                onUploadProgress: (data) => {
+                    setUploaded(Math.round((data.loaded / data.total) * 100));
+                }
+            }).then((res) => {
                 setItems(res.data.order_details);
                 setLoading(false)
+                setUploaded(null)
             });
         }
 
@@ -48,10 +55,15 @@ export default function Cart({ session }) {
     }
     const removeItem = async (indexItem, elementId) => {
         setLoading(true)
-        await axios.post("/api/removeItem", { elementId: elementId, uid: uid }).then((res) => {
+        await axios.post("/api/removeItem", { elementId: elementId, uid: uid },{
+            onUploadProgress: (data) => {
+                setUploaded(Math.round((data.loaded / data.total) * 100));
+            }
+        }).then((res) => {
 
             if (res.data.message === 'success') {
                 setLoading(false)
+                setUploaded(null)
                 dispatch(decrease(session));
                 toggleRefresh();
             }
@@ -62,8 +74,13 @@ export default function Cart({ session }) {
     const placeOrder = async () => {
         setLoading(true)
 
-        await axios.post("/api/placeOrder", { items: itemName, grand_total: grandTotal.toString(), status: "On The Way", userId: session.user._id }).then((res) => {
+        await axios.post("/api/placeOrder", { items: itemName, grand_total: grandTotal.toString(), status: "On The Way", userId: session.user._id },{
+            onUploadProgress: (data) => {
+                setUploaded(Math.round((data.loaded / data.total) * 100));
+            }
+        }).then((res) => {
             setLoading(false)
+            setUploaded(null)
             toast.success('Order has been placed')
         });
     }
@@ -75,7 +92,9 @@ export default function Cart({ session }) {
     else {
         return (
             <>
-                {loading ? <Loader /> : ""}
+                {/* {loading ? <Loader value={uploaded} max={100} /> : ""} */}
+                {uploaded && (<Loader value={uploaded} max={100} />)}
+
                 <div className='container-fluid'>
                     <div className='row mt-4'>
 

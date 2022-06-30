@@ -8,56 +8,62 @@ import Loader from './Loader';
 
 export default function Dashboard({ user }) {
     const router = useRouter()
-    const[loading,setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [restaurant, setRestaurant] = useState([]);
+    const [uploaded, setUploaded] = useState(null)
     useEffect(() => {
-        if(!user)
-        {
-         router.push('/')
+        if (!user) {
+            router.push('/')
         }
-        else{
+        else {
             loadusers();
         }
     }, [])
     const loadusers = async () => {
         setLoading(true);
-        await axios.get("/api/resturant").then((res) => {
+        await axios.post("/api/resturant", {}, {
+            onUploadProgress: (data) => {
+                setUploaded(Math.round((data.loaded / data.total) * 100));
+            }
+        }).then((res) => {
             setRestaurant(res.data)
-        setLoading(false);
+            setLoading(false);
+            setUploaded(null)
 
         });
     }
 
-    if(user){
+    if (user) {
         return (
             <>
-            {loading?<Loader/>:""}
+                {loading ? <Loader value={uploaded} max={100} /> : ""}
+
                 <div className='container'>
                     <h1 className='mt-5 text-black-50'>Order food online with Food Court</h1>
-                    <hr/>
+                    <hr />
                     <div className="row">
-                      
+
                         {restaurant.map((element, index) => {
                             return (
                                 <div className="col-md-6 py-3" key={index}>
                                     <Link href={`/component/Menu?rest_id=${element._id}`}>
                                         <a>
-                                        <div className="card">
-                                        <div className='row'>
-                                            <div className='col'>
-                                                <img src={element.picture} className="card-img-top" alt="..." />
+                                            <div className="card">
+                                                <div className='row'>
+                                                    <div className='col'>
+                                                        <img src={element.picture} className="card-img-top" alt="..." />
+                                                    </div>
+                                                </div>
+                                                <div className="card-body">
+                                                    <h5 className="card-title">{element.name}</h5>
+
+                                                    <p className="card-text">Biryani, Chinese, Continental, Fast Food, Healthy Food, Mughlai
+                                                        Patna Locality, Patna.</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="card-body">
-                                            <h5 className="card-title">{element.name}</h5>
-    
-                                            <p className="card-text">Biryani, Chinese, Continental, Fast Food, Healthy Food, Mughlai
-                                                Patna Locality, Patna.</p>
-                                        </div>
-                                    </div>
                                         </a>
                                     </Link>
-                                 
+
                                 </div>
                             )
                         })}
@@ -66,5 +72,5 @@ export default function Dashboard({ user }) {
             </>
         )
     }
-   
+
 }

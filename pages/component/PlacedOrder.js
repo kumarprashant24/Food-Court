@@ -14,13 +14,13 @@ export default function PlacedOrder({ session }) {
     const router = useRouter()
     const [refresh, setRefresh] = useState(true);
     const [loading, setLoading] = useState(false)
+    const [uploaded,setUploaded] = useState(null);
 
     const { uid } = router.query;
     const toggleRefresh = () => setRefresh((p) => !p);
     useEffect(() => {
         if (!session) {
             router.push('/')
-
         }
         else {
             loadData()
@@ -33,13 +33,17 @@ export default function PlacedOrder({ session }) {
     const loadData = async () => {
         if (session.cart === undefined) {
 
-
         }
         else {
             setLoading(true)
-            await axios.post("/api/getPlacedItem", { userId: uid }).then((res) => {
+            await axios.post("/api/getPlacedItem", { userId: uid },{
+                onUploadProgress: (data) => {
+                    setUploaded(Math.round((data.loaded / data.total) * 100));
+                }
+            }).then((res) => {
             setPlaced(res.data.order_placed)
             setLoading(false)
+            setUploaded(null)
 
             });
         }
@@ -49,10 +53,14 @@ export default function PlacedOrder({ session }) {
 
     const cancelOrder = async (order) => {
         setLoading(true);
-        await axios.post("/api/cancelOrder", { userId: session.user._id, orderId: order._id }).then((res) => {
-        setLoading(true);
+        await axios.post("/api/cancelOrder", { userId: session.user._id, orderId: order._id },{
+            onUploadProgress: (data) => {
+                setUploaded(Math.round((data.loaded / data.total) * 100));
+            }
+        }).then((res) => {
+        setLoading(false);
+        setUploaded(false)
             toggleRefresh();
-
         });
     }
     if (!session) {
@@ -63,7 +71,10 @@ export default function PlacedOrder({ session }) {
     else {
         return (
             <>
-            {loading?<Loader/>:""}
+            {/* {loading? <Loader value={uploaded} max={100}/>:""} */}
+            {uploaded && (<Loader value={uploaded} max={100} />)}
+
+         
                 <div className='container mt-4'>
                     <h1>Placed Order Details</h1>
                     <hr />
@@ -113,7 +124,7 @@ export default function PlacedOrder({ session }) {
 
                     </div>
                 </div>
-                {/* <ToastContainer theme="colored" /> */}
+                <ToastContainer theme="colored" />
 
             </>
         )

@@ -17,13 +17,9 @@ export default function Profile({ user,session}) {
     };
     const updateProfile = async() => {
         await axios.post('/api/updateUserProfile',{data:inputs,uid:session.user._id}).then((res)=>{
-            console.log(res);
             toast.success('Profile Updated')
         })
     }
-    useEffect(() => {
-   
-    }, [])
    
   
 
@@ -86,7 +82,7 @@ export default function Profile({ user,session}) {
                 </div>
             </div>
         </div>
-        {/* <ToastContainer theme="colored" /> */}
+        <ToastContainer theme="colored" />
       
         </>
     )

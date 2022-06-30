@@ -122,7 +122,7 @@ a:hover{
 }
 
 div::-webkit-scrollbar {
-  width: 7px;
+  width: 4px;
 }
 div::-webkit-scrollbar-thumb{
   background-image: linear-gradient(to top, #00b09b, #96c93d);
@@ -173,11 +173,18 @@ border-radius: .8rem;
   justify-content: center;
   align-items: center;
 }
+.pg-height{
+  height: 5px;
+}
 .sticky-load{
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 11
+}
+.username{
+  display: flex;
+  align-items: center;
 }
 @keyframes loading{
   0%{
@@ -228,5 +235,9 @@ border-radius: .8rem;
     min-width: 100%;
     max-width: 100%;
     transform: translate(0,-2rem);
+  }
+  .username{
+    display: none;
+  
   }
 }

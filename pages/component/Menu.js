@@ -14,7 +14,9 @@ export default function Menu({ providers, session }) {
     const [menu, setMenu] = useState([])
     const [restro, setRestro] = useState({})
     const dispatch = useDispatch();
-    const[loading,setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [uploaded, setUploaded] = useState(null)
+
 
     const router = useRouter()
     const { rest_id } = router.query
@@ -30,10 +32,17 @@ export default function Menu({ providers, session }) {
     }, [])
 
     const loadusers = async (e) => {
-
-        await axios.post("/api/menu", { id: rest_id }).then((res) => {
+        setLoading(true)
+        await axios.post("/api/menu", { id: rest_id }, {
+            onUploadProgress: (data) => {
+                setUploaded(Math.round((data.loaded / data.total) * 100));
+            }
+        }).then((res) => {
             setMenu(res.data.menu)
             setRestro(res.data);
+            setLoading(false)
+            setUploaded(null)
+
         });
     }
     const minus = (e, index) => {
@@ -54,19 +63,27 @@ export default function Menu({ providers, session }) {
         setLoading(true)
         const quantity = document.getElementById(index).innerText;
 
-        await axios.post("/api/bag", { order_details: [{ restro_name: restro.name, food_name: item.food_name, price: item.price, picture: item.image, quantity: quantity }], ordered_by: session.user._id }).then((res) => {
+        await axios.post("/api/bag", { order_details: [{ restro_name: restro.name, food_name: item.food_name, price: item.price, picture: item.image, quantity: quantity }], ordered_by: session.user._id }, {
+            onUploadProgress: (data) => {
+                setUploaded(Math.round((data.loaded / data.total) * 100));
+            }
+        }).then((res) => {
             toast.success('Added to bag')
             setLoading(false)
+            setUploaded(null)
             dispatch(increase(session));
         });
     }
     if (session) {
         return (
             <>
-            {loading?  <Loader/>:""}
+
+                {uploaded && (<Loader value={uploaded} max={100} />)}
+
+
                 <div className='container mt-4'>
-                <h1 className='text-black-50'>{restro.name} Menu</h1>
-                <hr/>
+                    <h1 className='text-black-50'>{restro.name} Menu</h1>
+                    <hr />
                     <div className='row gy-4'>
                         {menu.map((element, index) => {
                             return <>
@@ -84,7 +101,7 @@ export default function Menu({ providers, session }) {
                                             </div>
                                             <div className=" rounded-0 mt-4">
                                                 <button className="btn btn-success rounded-0 w-100" type="button" onClick={(e) => addToBag(element, e, index)}>Add To Bag</button>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -97,7 +114,7 @@ export default function Menu({ providers, session }) {
                 </div>
 
 
-                {/* <ToastContainer theme="colored" /> */}
+                <ToastContainer theme="colored" />
 
             </>
         )
