@@ -108,7 +108,7 @@ export default function UploadContainer({ user }) {
 
             <>
                 <div className='row'>
-                    {/* <h3 style={{padding:'0'}}>Restaurant Details</h3> */}
+                  
                     <div className='container col-sm-5 border mt-5 rounded'>
                         <div className=" mt-5 ">
 
@@ -208,7 +208,7 @@ export default function UploadContainer({ user }) {
                     </div>
                 </div>
 
-                <ToastContainer theme="colored" />
+                {/* <ToastContainer theme="colored" /> */}
 
             </>
         )

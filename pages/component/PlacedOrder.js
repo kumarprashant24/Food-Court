@@ -113,7 +113,7 @@ export default function PlacedOrder({ session }) {
 
                     </div>
                 </div>
-                <ToastContainer theme="colored" />
+                {/* <ToastContainer theme="colored" /> */}
 
             </>
         )

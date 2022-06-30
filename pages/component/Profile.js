@@ -86,7 +86,7 @@ export default function Profile({ user,session}) {
                 </div>
             </div>
         </div>
-        <ToastContainer theme="colored" />
+        {/* <ToastContainer theme="colored" /> */}
       
         </>
     )
