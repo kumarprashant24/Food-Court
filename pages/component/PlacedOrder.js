@@ -6,12 +6,14 @@ import { chekLogin } from '../../redux/action/index'
 import { useDispatch } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from './Loader';
 
 export default function PlacedOrder({ session }) {
     const dispatch = useDispatch();
     const [placed, setPlaced] = useState([])
     const router = useRouter()
     const [refresh, setRefresh] = useState(true);
+    const [loading, setLoading] = useState(false)
 
     const { uid } = router.query;
     const toggleRefresh = () => setRefresh((p) => !p);
@@ -34,8 +36,11 @@ export default function PlacedOrder({ session }) {
 
         }
         else {
+            setLoading(true)
             await axios.post("/api/getPlacedItem", { userId: uid }).then((res) => {
-                setPlaced(res.data.order_placed)
+            setPlaced(res.data.order_placed)
+            setLoading(false)
+
             });
         }
 
@@ -43,7 +48,9 @@ export default function PlacedOrder({ session }) {
     }
 
     const cancelOrder = async (order) => {
+        setLoading(true);
         await axios.post("/api/cancelOrder", { userId: session.user._id, orderId: order._id }).then((res) => {
+        setLoading(true);
             toggleRefresh();
 
         });
@@ -56,6 +63,7 @@ export default function PlacedOrder({ session }) {
     else {
         return (
             <>
+            {loading?<Loader/>:""}
                 <div className='container mt-4'>
                     <h1>Placed Order Details</h1>
                     <hr />

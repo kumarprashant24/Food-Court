@@ -7,11 +7,13 @@ import { chekLogin, decrease } from '../../redux/action/index'
 import Link from 'next/link';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from './Loader';
 
 export default function Cart({ session }) {
     const dispatch = useDispatch();
     const [items, setItems] = useState([]);
     const itemName = []
+    const [loading, setLoading] = useState(false)
 
     let grandTotal = 0;
     const router = useRouter()
@@ -30,26 +32,26 @@ export default function Cart({ session }) {
     }, [])
 
     const loadusers = async (e) => {
-        if(session === null || session.cart ===undefined)
-        {
+        if (session === null || session.cart === undefined) {
 
         }
-        else{
-            await axios.post("/api/showCartItems", { id: uid }).then((res) => {
+        else {
+            setLoading(true)
 
+            await axios.post("/api/showCartItems", { id: uid }).then((res) => {
                 setItems(res.data.order_details);
-    
+                setLoading(false)
             });
         }
 
-      
-    }
-    const removeItem = async (indexItem) => {
 
-        await axios.post("/api/removeItem", { index: indexItem, uid: uid }).then((res) => {
-        
+    }
+    const removeItem = async (indexItem, elementId) => {
+        setLoading(true)
+        await axios.post("/api/removeItem", { elementId: elementId, uid: uid }).then((res) => {
+
             if (res.data.message === 'success') {
-                console.log('sess');
+                setLoading(false)
                 dispatch(decrease(session));
                 toggleRefresh();
             }
@@ -58,23 +60,22 @@ export default function Cart({ session }) {
 
     }
     const placeOrder = async () => {
+        setLoading(true)
 
         await axios.post("/api/placeOrder", { items: itemName, grand_total: grandTotal.toString(), status: "On The Way", userId: session.user._id }).then((res) => {
+            setLoading(false)
             toast.success('Order has been placed')
         });
-
-
-
     }
     if (!session) {
         return (
             <Dashboard></Dashboard>
         )
     }
-
     else {
         return (
             <>
+                {loading ? <Loader /> : ""}
                 <div className='container-fluid'>
                     <div className='row mt-4'>
 
@@ -112,11 +113,11 @@ export default function Cart({ session }) {
                                 grandTotal += parseInt(element.price) * parseInt(element.quantity);
                                 return <>
                                     <div className='d-flex justify-content-between mt-4 container' key={index}>
-                                        <div className='partition text-muted'>{element.food_name}</div>
-                                        <div className='partition-mid text-center text-black-50'>1 x {element.quantity}</div>
+                                        <div className='partition text-muted'><div>{element.food_name}</div></div>
+                                        <div className='partition-mid text-center text-black-50'><div className='food-quantity'>1 x {element.quantity}</div></div>
                                         <div className='d-flex align-items-center justify-content-end partition '>
                                             <div className='text-success fw-bold'><span className='me-2'>₹</span>{element.price * element.quantity}</div>
-                                            <div onClick={() => removeItem(index)} className=" p-2">
+                                            <div onClick={() => removeItem(index, element._id)} >
                                                 <i className="fa-solid fa-xmark ms-3 text-white d-flex justify-content-center align-items-center  bg-danger cross" ></i>
                                             </div>
                                         </div>

@@ -5,11 +5,16 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux'
 import { increase, chekLogin } from '../../redux/action'
+import Loader from './Loader';
+
+
+
 
 export default function Menu({ providers, session }) {
     const [menu, setMenu] = useState([])
     const [restro, setRestro] = useState({})
     const dispatch = useDispatch();
+    const[loading,setLoading] = useState(false)
 
     const router = useRouter()
     const { rest_id } = router.query
@@ -46,16 +51,19 @@ export default function Menu({ providers, session }) {
     }
     const addToBag = async (item, e, index) => {
         e.preventDefault();
+        setLoading(true)
         const quantity = document.getElementById(index).innerText;
 
         await axios.post("/api/bag", { order_details: [{ restro_name: restro.name, food_name: item.food_name, price: item.price, picture: item.image, quantity: quantity }], ordered_by: session.user._id }).then((res) => {
             toast.success('Added to bag')
+            setLoading(false)
             dispatch(increase(session));
         });
     }
     if (session) {
         return (
             <>
+            {loading?  <Loader/>:""}
                 <div className='container mt-4'>
                 <h1 className='text-black-50'>{restro.name} Menu</h1>
                 <hr/>

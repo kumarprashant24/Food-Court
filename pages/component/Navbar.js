@@ -13,14 +13,18 @@ export default function Navbar({ user,userData,session,}) {
  
     const router = useRouter()
 
-   useEffect(()=>{
-    
-   },[])
  
   const home =()=>{
     router.push('/');
   }
    
+  if(!session)
+  {
+    return (
+        <></>
+    )
+  }
+  else{
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light border-bottom">
@@ -80,4 +84,6 @@ export default function Navbar({ user,userData,session,}) {
             </nav>
         </>
     )
+  }
+  
 }

@@ -26,6 +26,7 @@ a {
 .heading{
   font-size: 6rem;
   font-weight: 900;
+  text-align: center;
 }
 .login::before{
   content: '';
@@ -153,6 +154,62 @@ width: 100%;
 height: 100%;
 object-fit: cover;
 border-radius: .8rem;
+
+}
+.main-head{
+   color: #96c93d;
+   animation: animate 5s linear infinite;
+   animation-direction: alternate
+}
+.loader{
+  width: 100%;
+  height: 3px;
+  background-color: #00b09b;
+  animation: loading 2s forwards cubic-bezier(0,0,0,0);
+}
+.food-quantity{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sticky-load{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 11
+}
+@keyframes loading{
+  0%{
+    width: 0%;
+  }
+  25%{
+    width: 25%;
+  }
+  50%{
+    width: 50%;
+  }
+  100%{
+    width: 100%;
+  }
+}
+
+@keyframes animate{
+  0%{
+    color: crimson;
+  }
+  25%{
+    color: darkturquoise;
+  }
+  50%{
+    color: teal;
+  }
+  75%{
+    color: silver;
+  }
+  100%{
+    color: orangered;
+  }
 }
 @media only screen and (max-width: 980px) {
   .cross{
@@ -161,7 +218,6 @@ border-radius: .8rem;
   }
   .partition-mid{
     position: relative;
-    top: 10px;
     width: 40%;
   }
   .blog-post{

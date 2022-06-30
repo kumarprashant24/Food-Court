@@ -7,11 +7,9 @@ export default function Login({ toggle }) {
             <div className='position-absolute top-0 d-flex  justify-content-center w-100  align-items-center' style={{ height: '100vh' }}>
                 <div>
                     <div className='d-flex'>
-                        <h1 className='text-white heading'>Taste The <span style={{color:'orangered'}}>Flavour</span> </h1>
+                        <h1 className='text-white heading '>Taste The <span className='main-head'>Flavour</span> </h1>
 
-                        <div className='d-flex align-items-center ms-2'>
-                            <i className="fa-solid fa-2x fa-arrow-right-long text-white"></i>
-                        </div>
+
                     </div>
                     <div className='d-flex  justify-content-center ' style={{cursor:"pointer"}}>
                         <div className='bg-white d-flex p-2 rounded' onClick={() => signIn(toggle.google.id)}>
