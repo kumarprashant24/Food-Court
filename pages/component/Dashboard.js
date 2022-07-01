@@ -6,11 +6,11 @@ import Loader from './Loader';
 
 
 
-export default function Dashboard({ user }) {
+export default function Dashboard({ user, setProgress }) {
     const router = useRouter()
-    const [loading, setLoading] = useState(false)
+
     const [restaurant, setRestaurant] = useState([]);
-    const [uploaded, setUploaded] = useState(null)
+
     useEffect(() => {
         if (!user) {
             router.push('/')
@@ -20,15 +20,12 @@ export default function Dashboard({ user }) {
         }
     }, [])
     const loadusers = async () => {
-        setLoading(true);
         await axios.post("/api/resturant", {}, {
             onUploadProgress: (data) => {
-                setUploaded(Math.round((data.loaded / data.total) * 100));
+                setProgress(Math.round((data.loaded / data.total) * 100));
             }
         }).then((res) => {
             setRestaurant(res.data)
-            setLoading(false);
-            setUploaded(null)
 
         });
     }
@@ -36,7 +33,6 @@ export default function Dashboard({ user }) {
     if (user) {
         return (
             <>
-                {loading ? <Loader value={uploaded} max={100} /> : ""}
 
                 <div className='container'>
                     <h1 className='mt-5 text-black-50'>Order food online with Food Court</h1>

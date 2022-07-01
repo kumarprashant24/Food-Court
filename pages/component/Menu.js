@@ -10,14 +10,10 @@ import Loader from './Loader';
 
 
 
-export default function Menu({ providers, session }) {
+export default function Menu({ session, setProgress }) {
     const [menu, setMenu] = useState([])
     const [restro, setRestro] = useState({})
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(false)
-    const [uploaded, setUploaded] = useState(null)
-
-
     const router = useRouter()
     const { rest_id } = router.query
     useEffect(() => {
@@ -32,17 +28,13 @@ export default function Menu({ providers, session }) {
     }, [])
 
     const loadusers = async (e) => {
-        setLoading(true)
         await axios.post("/api/menu", { id: rest_id }, {
             onUploadProgress: (data) => {
-                setUploaded(Math.round((data.loaded / data.total) * 100));
+                setProgress(Math.round((data.loaded / data.total) * 100));
             }
         }).then((res) => {
             setMenu(res.data.menu)
             setRestro(res.data);
-            setLoading(false)
-            setUploaded(null)
-
         });
     }
     const minus = (e, index) => {
@@ -60,27 +52,19 @@ export default function Menu({ providers, session }) {
     }
     const addToBag = async (item, e, index) => {
         e.preventDefault();
-        setLoading(true)
         const quantity = document.getElementById(index).innerText;
-
         await axios.post("/api/bag", { order_details: [{ restro_name: restro.name, food_name: item.food_name, price: item.price, picture: item.image, quantity: quantity }], ordered_by: session.user._id }, {
             onUploadProgress: (data) => {
-                setUploaded(Math.round((data.loaded / data.total) * 100));
+                setProgress(Math.round((data.loaded / data.total) * 100));
             }
         }).then((res) => {
-            toast.success('Added to bag')
-            setLoading(false)
-            setUploaded(null)
+            toast.success('Added to bag');
             dispatch(increase(session));
         });
     }
     if (session) {
         return (
             <>
-
-                {uploaded && (<Loader value={uploaded} max={100} />)}
-
-
                 <div className='container mt-4'>
                     <h1 className='text-black-50'>{restro.name} Menu</h1>
                     <hr />
@@ -114,7 +98,7 @@ export default function Menu({ providers, session }) {
                 </div>
 
 
-                <ToastContainer theme="colored" />
+                {/* <ToastContainer theme="colored" /> */}
 
             </>
         )

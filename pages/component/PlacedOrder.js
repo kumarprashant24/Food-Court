@@ -8,14 +8,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from './Loader';
 
-export default function PlacedOrder({ session }) {
+export default function PlacedOrder({ session, setProgress }) {
     const dispatch = useDispatch();
     const [placed, setPlaced] = useState([])
     const router = useRouter()
     const [refresh, setRefresh] = useState(true);
-    const [loading, setLoading] = useState(false)
-    const [uploaded,setUploaded] = useState(null);
-
     const { uid } = router.query;
     const toggleRefresh = () => setRefresh((p) => !p);
     useEffect(() => {
@@ -35,31 +32,23 @@ export default function PlacedOrder({ session }) {
 
         }
         else {
-            setLoading(true)
-            await axios.post("/api/getPlacedItem", { userId: uid },{
+            await axios.post("/api/getPlacedItem", { userId: uid }, {
                 onUploadProgress: (data) => {
-                    setUploaded(Math.round((data.loaded / data.total) * 100));
+                    setProgress(Math.round((data.loaded / data.total) * 100));
                 }
             }).then((res) => {
-            setPlaced(res.data.order_placed)
-            setLoading(false)
-            setUploaded(null)
-
+                setPlaced(res.data.order_placed)
             });
         }
-
 
     }
 
     const cancelOrder = async (order) => {
-        setLoading(true);
-        await axios.post("/api/cancelOrder", { userId: session.user._id, orderId: order._id },{
+        await axios.post("/api/cancelOrder", { userId: session.user._id, orderId: order._id }, {
             onUploadProgress: (data) => {
-                setUploaded(Math.round((data.loaded / data.total) * 100));
+                setProgress(Math.round((data.loaded / data.total) * 100));
             }
         }).then((res) => {
-        setLoading(false);
-        setUploaded(false)
             toggleRefresh();
         });
     }
@@ -71,10 +60,7 @@ export default function PlacedOrder({ session }) {
     else {
         return (
             <>
-            {/* {loading? <Loader value={uploaded} max={100}/>:""} */}
-            {uploaded && (<Loader value={uploaded} max={100} />)}
 
-         
                 <div className='container mt-4'>
                     <h1>Placed Order Details</h1>
                     <hr />
@@ -92,7 +78,7 @@ export default function PlacedOrder({ session }) {
 
                                                     return <>
                                                         <div className='d-flex p-1'>
-                                                            <div className='text-muted'>{i+1}.&nbsp; </div>
+                                                            <div className='text-muted'>{i + 1}.&nbsp; </div>
                                                             <div className="text-muted" key={i}>{e}</div>
 
                                                         </div>
@@ -124,7 +110,7 @@ export default function PlacedOrder({ session }) {
 
                     </div>
                 </div>
-                <ToastContainer theme="colored" />
+                {/* <ToastContainer theme="colored" /> */}
 
             </>
         )

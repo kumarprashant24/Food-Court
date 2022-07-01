@@ -4,12 +4,12 @@ import Spinner from './Spinner';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
+import Loader from './Loader';
 
-export default function UploadContainer({ user }) {
+export default function UploadContainer({ user, setProgress }) {
     const router = useRouter()
     const [restroPic, setRestroPic] = useState('')
     const [restroId, setRestroId] = useState('')
-
     const [dishPic, setDishPic] = useState('')
     const [refresh, setRefresh] = useState(false)
     const [restaurant, setRestaurant] = useState([]);
@@ -57,7 +57,12 @@ export default function UploadContainer({ user }) {
         fd.append('file', file);
         fd.append('upload_preset', 'ml_default');
         fd.append('cloud_name', 'buzzz-social-app');
-        const result = await axios.post('https://api.cloudinary.com/v1_1/buzzz-social-app/image/upload', fd);
+        const result = await axios.post('https://api.cloudinary.com/v1_1/buzzz-social-app/image/upload', fd, {
+            onUploadProgress: (data) => {
+                setProgress(Math.round((data.loaded / data.total) * 100));
+
+            }
+        });
         setLoading(false);
         setRestroPic(result.data.secure_url);
     };
@@ -68,7 +73,12 @@ export default function UploadContainer({ user }) {
         fd.append('file', file);
         fd.append('upload_preset', 'ml_default');
         fd.append('cloud_name', 'buzzz-social-app');
-        const result = await axios.post('https://api.cloudinary.com/v1_1/buzzz-social-app/image/upload', fd);
+        const result = await axios.post('https://api.cloudinary.com/v1_1/buzzz-social-app/image/upload', fd, {
+            onUploadProgress: (data) => {
+                setProgress(Math.round((data.loaded / data.total) * 100));
+
+            }
+        });
         setLoading1(false);
         setDishPic(result.data.secure_url);
     };
@@ -203,7 +213,7 @@ export default function UploadContainer({ user }) {
                     </div>
                 </div>
 
-                <ToastContainer theme="colored" />
+                {/* <ToastContainer theme="colored" /> */}
 
             </>
         )

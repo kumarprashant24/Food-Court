@@ -5,7 +5,7 @@ import Login from './component/Login'
 import Admin from './component/Admin'
 import { useDispatch } from 'react-redux'
 import { chekLogin } from '../redux/action/index'
-export default function Home({ providers, session }) {
+export default function Home({ providers, session,progress,setProgress  }) {
   const dispatch = useDispatch();
 
 useEffect(()=>{
@@ -20,7 +20,7 @@ useEffect(()=>{
   else if (session.user.email === process.env.ADMIN_ID) {
     return (
       <>
-        <Admin user={session.user}></Admin>
+        <Admin user={session.user} progress={progress} setProgress={setProgress}></Admin>
       </>
     )
   }
@@ -28,7 +28,7 @@ useEffect(()=>{
     dispatch(chekLogin(session));
     return (
       <>
-        <Dashboard user={session.user} />
+        <Dashboard user={session.user} progress={progress} setProgress={setProgress} />
       </>
     )
   }

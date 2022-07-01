@@ -6,7 +6,7 @@ import Profile from './Profile'
 import { useSelector } from 'react-redux'
 
 
-export default function Navbar({ user, userData, session, }) {
+export default function Navbar({ user, session, }) {
     const myState = useSelector((state) =>
         state.changeNumber
     )
@@ -35,17 +35,17 @@ export default function Navbar({ user, userData, session, }) {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <div className='d-flex justify-content-between w-100'>
                                 <div>
-                                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                    <li className="nav-item">
-                                        <Link href="/component/Dashboard">
-                                            <a className="nav-link active d-flex align-items-center fw-bold" aria-current="page"><div><i className="fa-solid fa-2x fa-seedling me-2 text-success"></i></div>Food Court</a>
+                                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                        <li className="nav-item">
+                                            <Link href="/component/Dashboard">
+                                                <a className="nav-link active d-flex align-items-center fw-bold" aria-current="page"><div><i className="fa-solid fa-2x fa-seedling me-2 text-success"></i></div>Food Court</a>
 
-                                        </Link>
-                                    </li>
+                                            </Link>
+                                        </li>
 
-                                </ul>
+                                    </ul>
                                 </div>
-                               
+
                                 {user === '' ? "" :
                                     <div className='d-flex'>
                                         <div className='d-flex' data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ cursor: "pointer" }}>
@@ -82,8 +82,6 @@ export default function Navbar({ user, userData, session, }) {
                                     </div>
                                 }
                             </div>
-
-
                         </div>
                     </div>
                 </nav>

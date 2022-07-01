@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react'
 import UploadContainer from './UploadContainer'
 
-export default function Admin({user}) {
-    useEffect(()=>{
-        console.log(user);
-    },[])
-
+export default function Admin({user, progress ,setProgress}) {
+ 
     
     return (
         <div className='container'>
@@ -13,9 +10,8 @@ export default function Admin({user}) {
             <hr/>
             <div className='row mt-5 '>
                 <div className='col-md-12 '>
-                    <UploadContainer user={user}/>
+                    <UploadContainer user={user} progress={progress} setProgress={setProgress}/>
                 </div>
-            
             </div>
 
         </div>

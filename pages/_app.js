@@ -2,16 +2,19 @@ import '../styles/globals.css'
 import Head from 'next/head'
 import Script from 'next/script'
 import { providers, getSession } from "next-auth/client"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Layout from './component/Layout'
 import { Provider } from 'react-redux'
 import store from '../redux/store'
+import LoadingBar from 'react-top-loading-bar'
+import { ToastContainer } from 'react-toastify';
+
 function MyApp({
   Component,
   pageProps, providers, session
 }) {
 
- 
+  const [progress, setProgress] = useState(0)
   return <>
 
     <Head>
@@ -19,7 +22,14 @@ function MyApp({
     </Head>
     <Provider store={store}  session={session} >
       <Layout providers={providers} session={session}  >
-        <Component {...pageProps} providers={providers} session={session} />
+      <LoadingBar
+        color='#f11946'
+        loaderSpeed={2000}
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
+                <ToastContainer theme="colored" />
+        <Component {...pageProps} providers={providers} session={session} progress={progress} setProgress={setProgress}/>
       </Layout>
     </Provider>
     <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></Script>

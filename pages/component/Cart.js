@@ -9,14 +9,10 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from './Loader';
 
-export default function Cart({ session }) {
+export default function Cart({ session, setProgress }) {
     const dispatch = useDispatch();
     const [items, setItems] = useState([]);
-    const itemName = []
-    const [loading, setLoading] = useState(false)
-    const [uploaded, setUploaded] = useState(null)
-
-
+    const itemName = [];
     let grandTotal = 0;
     const router = useRouter()
     const { uid } = router.query;
@@ -24,7 +20,6 @@ export default function Cart({ session }) {
     const toggleRefresh = () => setRefresh((p) => !p);
 
     useEffect(() => {
-
         loadusers();
 
     }, [refresh])
@@ -38,32 +33,31 @@ export default function Cart({ session }) {
 
         }
         else {
-            setLoading(true)
+
 
             await axios.post("/api/showCartItems", { id: uid }, {
                 onUploadProgress: (data) => {
-                    setUploaded(Math.round((data.loaded / data.total) * 100));
+                    setProgress(Math.round((data.loaded / data.total) * 100));
                 }
             }).then((res) => {
                 setItems(res.data.order_details);
-                setLoading(false)
-                setUploaded(null)
+
+
+
             });
         }
 
 
     }
     const removeItem = async (indexItem, elementId) => {
-        setLoading(true)
-        await axios.post("/api/removeItem", { elementId: elementId, uid: uid },{
+
+        await axios.post("/api/removeItem", { elementId: elementId, uid: uid }, {
             onUploadProgress: (data) => {
-                setUploaded(Math.round((data.loaded / data.total) * 100));
+                setProgress(Math.round((data.loaded / data.total) * 100));
             }
         }).then((res) => {
 
             if (res.data.message === 'success') {
-                setLoading(false)
-                setUploaded(null)
                 dispatch(decrease(session));
                 toggleRefresh();
             }
@@ -72,15 +66,13 @@ export default function Cart({ session }) {
 
     }
     const placeOrder = async () => {
-        setLoading(true)
 
-        await axios.post("/api/placeOrder", { items: itemName, grand_total: grandTotal.toString(), status: "On The Way", userId: session.user._id },{
+        await axios.post("/api/placeOrder", { items: itemName, grand_total: grandTotal.toString(), status: "On The Way", userId: session.user._id }, {
             onUploadProgress: (data) => {
-                setUploaded(Math.round((data.loaded / data.total) * 100));
+                setProgress(Math.round((data.loaded / data.total) * 100));
             }
         }).then((res) => {
-            setLoading(false)
-            setUploaded(null)
+
             toast.success('Order has been placed')
         });
     }
@@ -92,9 +84,6 @@ export default function Cart({ session }) {
     else {
         return (
             <>
-                {/* {loading ? <Loader value={uploaded} max={100} /> : ""} */}
-                {uploaded && (<Loader value={uploaded} max={100} />)}
-
                 <div className='container-fluid'>
                     <div className='row mt-4'>
 
@@ -159,7 +148,7 @@ export default function Cart({ session }) {
                     </div>
 
                 </div>
-                <ToastContainer theme="colored" />
+                {/* <ToastContainer theme="colored" /> */}
 
             </>
 
