@@ -1,7 +1,5 @@
-import axios from "axios";
 import mongoose from "mongoose";
 import NextAuth from "next-auth"
-import { signIn } from "next-auth/client";
 import GoogleProvider from "next-auth/providers/google"
 import conn from '../../../dbConn'
 

@@ -37,6 +37,7 @@ export default function Cart({ session, setProgress }) {
 
             await axios.post("/api/showCartItems", { id: uid }, {
                 onUploadProgress: (data) => {
+                    
                     setProgress(Math.round((data.loaded / data.total) * 100));
                 }
             }).then((res) => {

@@ -72,7 +72,7 @@ export default function Menu({ session, setProgress }) {
                         {menu.map((element, index) => {
                             return <>
                                 <div className='col-md-4 ' key={index}>
-                                    <div className="card shadow-lg p-2 border-0 mb-5 bg-body rounded" >
+                                    <div className="card shadow-lg border-0 mb-5 bg-body rounded" >
                                         <img src={element.image} className="card-img-top" alt="..." />
                                         <div className="card-body p-0">
                                             <h5 className="card-title p-2">{element.food_name}</h5>
