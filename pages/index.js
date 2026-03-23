@@ -5,15 +5,14 @@ import Login from './component/Login'
 import Admin from './component/Admin'
 import { useDispatch } from 'react-redux'
 import { chekLogin } from '../redux/action/index'
+import BasicHome from './component/BasicHome'
 export default function Home({ providers, session,progress,setProgress  }) {
   const dispatch = useDispatch();
 
-useEffect(()=>{
-  console.log(session);
-},[])
   if (!session) {
     return (
-      <Login toggle={providers}></Login>
+      <BasicHome />
+      // <Login toggle={providers}></Login>
   
     )
   }

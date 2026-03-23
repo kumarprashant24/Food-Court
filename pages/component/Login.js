@@ -13,7 +13,7 @@ export default function Login({ toggle }) {
                     </div>
                     <div className='d-flex  justify-content-center ' style={{ cursor: "pointer" }}>
                         <div className='bg-white d-flex p-2 rounded' onClick={() => {
-                            console.log('toggle.google',toggle.google);
+                            // console.log('toggle.google',toggle.google);
                             
                             // signIn(toggle.google.id)
                             }}>
