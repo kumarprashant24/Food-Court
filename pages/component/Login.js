@@ -15,7 +15,7 @@ export default function Login({ toggle }) {
                         <div className='bg-white d-flex p-2 rounded' onClick={() => {
                             console.log('toggle.google',toggle.google);
                             
-                            signIn(toggle.google.id)
+                            // signIn(toggle.google.id)
                             }}>
                             <img className='google' src='https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png' />
                             <div className='d-flex align-items-center' style={{ color: 'rgb(105, 105, 105)' }}>Continue With Google</div>
