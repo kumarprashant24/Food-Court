@@ -7,7 +7,7 @@ export default function Login({ toggle }) {
             <div className='position-absolute top-0 d-flex  justify-content-center w-100  align-items-center' style={{ height: '100vh' }}>
                 <div>
                     <div className='d-flex'>
-                        <h1 className='text-white heading '>Taste The <span className='main-head'>Flavour</span> </h1>
+                        <h1 className='text-white heading '>Taste The New <span className='main-head'>Flavour</span> </h1>
 
 
                     </div>
