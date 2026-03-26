@@ -23,7 +23,7 @@ const BasicHome = () => {
     >
       <div className="container">
         <h1 className="display-4 text-center mb-5" style={{ fontWeight: 700, color: '#343a40' }}>
-          Food Court
+         New Food Court
         </h1>
 
         <div className="row g-4 justify-content-center">
